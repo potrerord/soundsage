@@ -9,7 +9,7 @@ class User:
      recommendations.
      """
 
-    _id: int
+    _user_id: int
     """The user ID number."""
 
     _liked_songs: list[str]
@@ -44,13 +44,13 @@ class User:
         # TODO: Condense into a float in range [0, 1] ?
         ...
 
-    def get_id(self: "User") -> int:
+    def get_user_id(self: "User") -> int:
         """Get the user ID number.
         
         :return: the user ID number.
         """
 
-        return self._id
+        return self._user_id
 
     def get_liked_songs(self: "User") -> list[str]:
         """Get the user's liked songs.
@@ -68,13 +68,13 @@ class User:
 
         return self._liked_genres
 
-    def set_id(self: "User", id: int) -> None:
+    def set_user_id(self: "User", user_id: int) -> None:
         """Set the user ID number.
         
-        :param id: the user ID number
+        :param user_id: the user ID number
         """
 
-        self._id = id
+        self._user_id = user_id
 
     def set_liked_songs(
             self: "User",
