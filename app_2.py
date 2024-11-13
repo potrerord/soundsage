@@ -1,3 +1,9 @@
+"""
+This section imports necessary libraries. `numpy` and `pandas` are for 
+data manipulation, `sklearn` for splitting data, and `tensorflow/keras` 
+for building and training the neural network.
+"""
+
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -17,6 +23,10 @@ data = pd.DataFrame({
     'interaction': np.random.randint(0, 2, 1000)
 })
 
+"""
+This part ensures that user and song IDs are converted to a format 
+suitable for the neural network by mapping them to integer indices.
+"""
 # Encode users and songs as integers
 user_ids = data['user_id'].unique()
 song_ids = data['song_id'].unique()
@@ -33,6 +43,11 @@ num_songs = len(song_ids)
 # Split data into training and test sets
 train_data, test_data = train_test_split(data, test_size=0.2, random_state=42)
 
+"""
+The `embedding_size` determines the dimensionality of the user and song 
+embeddings. Larger values may capture more nuanced relationships but 
+could increase computational cost.
+"""
 # Neural network model
 embedding_size = 50  # Size of the embedding vectors
 
@@ -46,6 +61,11 @@ song_input = keras.Input(shape=(1,), name='song_input')
 song_embedding = layers.Embedding(input_dim=num_songs, output_dim=embedding_size, name='song_embedding')(song_input)
 song_embedding = layers.Flatten()(song_embedding)
 
+"""
+The concatenation layer merges user and song embeddings into a single 
+input for the subsequent dense layers, allowing the model to learn 
+interactions between users and songs.
+"""
 # Concatenate user and song embeddings
 concat = layers.Concatenate()([user_embedding, song_embedding])
 
@@ -53,9 +73,18 @@ concat = layers.Concatenate()([user_embedding, song_embedding])
 # Example: additional_input = keras.Input(shape=(num_additional_features,), name='additional_input')
 # concat = layers.Concatenate()([concat, additional_input])
 
+"""
+This dense layer with 128 units and ReLU activation helps the model 
+learn complex, non-linear relationships between the input features.
+"""
 # Dense layers
 dense = layers.Dense(128, activation='relu')(concat)
 dense = layers.Dense(64, activation='relu')(dense)
+"""
+The final layer outputs a single value between 0 and 1, representing the 
+predicted probability of user interaction (e.g., liking the song). The 
+sigmoid activation is appropriate for binary classification.
+"""
 output = layers.Dense(1, activation='sigmoid')(dense)
 
 # Build and compile the model
@@ -78,6 +107,10 @@ print(f"Test Loss: {eval_results[0]}, Test Accuracy: {eval_results[1]}")
 
 # Function to recommend songs for a given user
 def recommend_songs(user_id, num_recommendations=5):
+    """This function generates song recommendations for a given user by 
+    predicting scores for all songs and returning the top 
+    recommendations based on the model's output.
+    """
     user_index = user_to_index.get(user_id)
     if user_index is None:
         raise ValueError("User ID not found")
