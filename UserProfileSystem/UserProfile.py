@@ -2,6 +2,7 @@ from collections import Counter
 from statistics import mean
 from typing import List
 from Data import Song
+import numpy as np
 
 class UserProfile:
     def __init__(self, user_id: str):
@@ -61,6 +62,42 @@ class UserProfile:
         """Returns the user's most frequently listened tracks."""
         return self.popular_tracks.most_common(n)
     
+    def get_user_vector(self, top_n=5) -> np.ndarray:
+        """
+        Converts the user's profile into a numerical vector representation.
+        
+        Returns a vector of:
+        - Average numerical features (danceability, energy, etc.)
+        - One-hot encoded vector for top N genres and artists
+        """
+        # Numerical features
+        numerical_features = [
+            self.danceability,
+            self.energy,
+            self.valence,
+            self.acousticness,
+            self.tempo,
+            self.loudness
+        ]
+        
+        # Get the top N genres and artists
+        top_genres = self.get_top_genres(top_n)
+        top_artists = self.get_top_artists(top_n)
+        
+        # One-hot encoding (or simple frequency count) for top N genres and artists
+        genre_vector = np.zeros(top_n)  # One-hot vector for top N genres
+        artist_vector = np.zeros(top_n)  # One-hot vector for top N artists
+        
+        for i, (genre, _) in enumerate(top_genres):
+            genre_vector[i] = 1  # Mark the genre as present
+        
+        for i, (artist, _) in enumerate(top_artists):
+            artist_vector[i] = 1  # Mark the artist as present
+        
+        # Combine all features into a single vector
+        user_vector = np.concatenate([numerical_features, genre_vector, artist_vector])
+        
+        return user_vector
     def __repr__(self):
         return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
                 f"valence={self.valence:.2f}, acousticness={self.acousticness:.2f}, "

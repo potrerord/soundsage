@@ -3,7 +3,7 @@ from RecommendationSystem import Recommender
 from collections import Counter
 import numpy as np
 
-class Aggregator(Recommender):
+class Aggregator:
     def __init__(self, recommenders: [Recommender], weights: [float]):
         """
         Initializes the Aggregator with a list of recommenders and their corresponding weights.

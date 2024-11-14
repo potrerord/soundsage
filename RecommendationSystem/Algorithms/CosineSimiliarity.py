@@ -5,7 +5,7 @@ from UserProfileSystem import UserProfile
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-class CosineSimilarity(Recommender):
+class CosineSimilarity:
     def __init__(self, user_profile: UserProfile, all_songs: List[Song]):
         self.user_profile = user_profile
         self.all_songs = all_songs
@@ -28,7 +28,10 @@ class CosineSimilarity(Recommender):
         Recommends songs based on cosine similarity between the user's profile and the songs.
         """
         user_vector = self.get_user_vector()
+        print("printing user vector")
+        print(user_vector)
         song_vectors = [song.to_vector() for song in self.all_songs]
+        print(song_vectors)
         
         # Calculate cosine similarities between the user profile vector and all song vectors
         similarities = cosine_similarity([user_vector], song_vectors)[0]
