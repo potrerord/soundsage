@@ -98,6 +98,23 @@ class UserProfile:
         user_vector = np.concatenate([numerical_features, genre_vector, artist_vector])
         
         return user_vector
+
+    def is_cold_start(self) -> bool:
+        """
+        Checks if the user profile is a cold start.
+        
+        :return: True if the profile is a cold start, False otherwise.
+        """
+        # If no songs have been processed, or no meaningful data in the profile, it's a cold start
+        return self.song_count == 0 or all(val == 0.0 for val in [
+            self.danceability,
+            self.energy,
+            self.valence,
+            self.acousticness,
+            self.tempo,
+            self.loudness
+        ]) or not self.genres or not self.artists
+    
     def __repr__(self):
         return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
                 f"valence={self.valence:.2f}, acousticness={self.acousticness:.2f}, "

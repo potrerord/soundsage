@@ -39,6 +39,8 @@ class Song:
         Converts the song's features into a numerical vector for cosine similarity calculation.
         """
         return np.array([self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness])
+    
     def __repr__(self):
-        return (f"Song(track_id={self.track_id}, danceability={self.danceability}, "
-                f"energy={self.energy}, valence={self.valence}, genres={self.genres}, artist={self.artist})")
+        return (f"Song(name={self.name}, track_id={self.track_id}, "
+            f"danceability={self.danceability}, energy={self.energy}, "
+            f"valence={self.valence})")

@@ -4,7 +4,7 @@ from collections import Counter
 import numpy as np
 
 class Aggregator:
-    def __init__(self, recommenders: [Recommender], weights: [float]):
+    def __init__(self, user_id: str, recommenders: [Recommender], weights: [float], user_profile_store, cold_start_strategy):
         """
         Initializes the Aggregator with a list of recommenders and their corresponding weights.
         
@@ -14,7 +14,10 @@ class Aggregator:
         if len(recommenders) != len(weights):
             raise ValueError("The number of recommenders must be equal to the number of weights.")
         
+        self.user_id = user_id
+        self.user_profile_store = user_profile_store
         self.recommenders = recommenders
+        self.cold_start_strategy = cold_start_strategy
         self.weights = weights
 
     def recommend(self, top_n: int = 5) -> [Song]:
@@ -25,6 +28,11 @@ class Aggregator:
         :return: List of top N recommended songs.
         """
         all_song_scores = Counter()
+
+        user_profile = self.user_profile_store.get_user_profile(self.user_id)
+
+        if not user_profile or user_profile.is_cold_start():
+            return self.cold_start_strategy.recommend()
 
         # Collect recommendations from each recommender and add scores based on weights
         for recommender, weight in zip(self.recommenders, self.weights):

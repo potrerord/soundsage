@@ -1,10 +1,11 @@
 from collections import Counter
 from UserProfileSystem import UserProfile
 import csv
+import os
 
 class UserProfileStore:
-    def __init__(self, file_path: str):
-        self.file_path = file_path
+    def __init__(self, file_name: str):
+        self.file_path = os.path.join('Data', file_name)
 
     def _read_csv(self):
         """Reads the CSV file and returns a list of dictionaries."""

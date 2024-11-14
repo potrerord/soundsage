@@ -1,8 +1,7 @@
 from UserProfileSystem import UserProfile
-from UserProfileSystem.FeedbackSystem import FeedbackStrategy
 from Data import Song
 
-class LikeDislikeFeedbackStrategy(FeedbackStrategy):
+class LikeDislikeFeedbackStrategy:
     def __init__(self, like_weight: float = 1.0, dislike_weight: float = -0.5):
         """
         Initializes the LikeDislikeFeedbackStrategy with the weights for like and dislike feedback.
