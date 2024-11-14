@@ -4,7 +4,7 @@ from collections import Counter
 import numpy as np
 
 class Aggregator:
-    def __init__(self, user_id: str, recommenders: [Recommender], weights: [float], user_profile_store, cold_start_strategy):
+    def __init__(self, user_id: str, recommenders: [Recommender], weights: [float], user_profile_store, cold_start_strategy, feedback_strategy):
         """
         Initializes the Aggregator with a list of recommenders and their corresponding weights.
         
@@ -46,3 +46,4 @@ class Aggregator:
         recommended_songs = [song for song, _ in all_song_scores.most_common(top_n)]
         
         return recommended_songs
+    

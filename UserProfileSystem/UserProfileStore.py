@@ -1,5 +1,5 @@
 from collections import Counter
-from UserProfileSystem import UserProfile
+from UserProfileSystem.UserProfile import UserProfile
 import csv
 import os
 
