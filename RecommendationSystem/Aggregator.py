@@ -4,7 +4,7 @@ from collections import Counter
 import numpy as np
 
 class Aggregator:
-    def __init__(self, user_id: str, recommenders: [Recommender], weights: [float], user_profile_store, cold_start_strategy, feedback_strategy):
+    def __init__(self, user_id: str, recommenders: [Recommender], weights: [float], user_profile_store, cold_start_strategy, top_n: int = 5):
         """
         Initializes the Aggregator with a list of recommenders and their corresponding weights.
         
@@ -19,8 +19,9 @@ class Aggregator:
         self.recommenders = recommenders
         self.cold_start_strategy = cold_start_strategy
         self.weights = weights
+        self.top_n = top_n
 
-    def recommend(self, top_n: int = 5) -> [Song]:
+    def recommend(self) -> [Song]:
         """
         Aggregates recommendations from multiple recommenders based on their weights and returns the top N songs.
         
@@ -30,20 +31,23 @@ class Aggregator:
         all_song_scores = Counter()
 
         user_profile = self.user_profile_store.get_user_profile(self.user_id)
+        print("user profile in aggregator")
+        print(user_profile)
 
-        if not user_profile or user_profile.is_cold_start():
+        if user_profile is None or user_profile.is_cold_start():
+            print('applying cold start strategy')
             return self.cold_start_strategy.recommend()
 
         # Collect recommendations from each recommender and add scores based on weights
         for recommender, weight in zip(self.recommenders, self.weights):
-            recommendations = recommender.recommend(top_n)
+            recommendations = recommender.recommend()
             
             # For each song, add the weighted score to the all_song_scores
             for song in recommendations:
                 all_song_scores[song] += weight
         
         # Sort songs by total score (descending) and get the top N
-        recommended_songs = [song for song, _ in all_song_scores.most_common(top_n)]
+        recommended_songs = [song for song, _ in all_song_scores.most_common(self.top_n)]
         
         return recommended_songs
     

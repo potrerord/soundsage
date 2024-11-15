@@ -1,6 +1,7 @@
 from Data.SongStore import SongStore
 from RecommendationSystem.Aggregator import Aggregator
 from RecommendationSystem.Algorithms.CosineSimiliarity import CosineSimilarity
+from RecommendationSystem.Algorithms.KNN import KNNRecommender
 from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSamplingStrategy
 from UserProfileSystem.FeedbackSystem.LikeDislikeFeedbackStrategy import LikeDislikeFeedbackStrategy
 from UserProfileSystem.UserProfile import UserProfile
@@ -30,9 +31,10 @@ if __name__ == "__main__":
 
     # recommendation algorithms
     cosine_similarity = CosineSimilarity(user_profile=user_profile, all_songs=all_songs)
+    knn = KNNRecommender(user_profile=user_profile, all_songs=all_songs)
 
     # recommender
-    recommender = Aggregator(user_id="1", recommenders=[cosine_similarity], weights=[1.0], user_profile_store=user_profile_store, cold_start_strategy=random_sampling_strategy, feedback_strategy=like_dislike_feedback_strategy)
+    recommender = Aggregator(user_id="1", recommenders=[cosine_similarity, knn], weights=[0.2, 0.8], user_profile_store=user_profile_store, cold_start_strategy=random_sampling_strategy)
     
     # Get the top 3 popular songs for cold start
     recommended_songs = recommender.recommend()
