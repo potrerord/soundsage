@@ -106,14 +106,14 @@ class UserProfile:
         :return: True if the profile is a cold start, False otherwise.
         """
         # If no songs have been processed, or no meaningful data in the profile, it's a cold start
-        return self.song_count == 0 or all(val == 0.0 for val in [
+        return self.song_count == 0 and all(val == 0.0 for val in [
             self.danceability,
             self.energy,
             self.valence,
             self.acousticness,
             self.tempo,
             self.loudness
-        ]) or not self.genres or not self.artists
+        ]) and not self.genres and not self.artists
     
     def __repr__(self):
         return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
