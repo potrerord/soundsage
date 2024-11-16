@@ -1,6 +1,8 @@
 import csv
 from typing import List
-from Data.Song import Song
+import sys
+sys.path.append(".../soundsage")
+from Data import Song
 import ast
 import os
 

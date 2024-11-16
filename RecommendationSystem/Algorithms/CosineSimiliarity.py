@@ -1,9 +1,16 @@
 from typing import List
+import sys, os
+print()
+os_path = os.path.join(os.path.dirname(sys.path[0]).strip("RecommendationSystem"), 'Data')
+# print(os_path)
+sys.path.append(os_path)
+# print(os.path.dirname(sys.path[0]))
+print()
+# os.path.join(os.path.dirname(sys.path[0]))
 from Data import Song
 from RecommendationSystem import Recommender
 from UserProfileSystem import UserProfile
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 
 class CosineSimilarity:
     def __init__(self, user_profile: UserProfile, all_songs: List[Song], top_n: int = 5):
@@ -23,6 +30,30 @@ class CosineSimilarity:
             self.user_profile.tempo,
             self.user_profile.loudness
         ])
+    
+    def calculate_cosine_similarity(self, user_vector, song_vector): 
+        '''
+        Calculate individual cosine similarity
+        '''
+        # Calculate dot product
+        dot_product = np.dot(user_vector, song_vector)
+        # Calculate the magnitude of each vector
+        magnitude_user = np.linalg.norm(user_vector)
+        magnitude_song = np.linalg.norm(song_vector)
+
+        # Compute cosine similarity
+        cosine_similarity = dot_product / (magnitude_user * magnitude_song)
+        return cosine_similarity
+    
+    def get_all_cosine_similarity(self, user_vector, song_vectors): 
+        '''
+        Compile all cosine similarity 
+        '''
+        similarities = np.array([])
+        for vector in song_vectors: 
+            similarity = self.calculate_cosine_similarity(user_vector, vector)
+            np.append(similarities, similarity)
+        return similarities
 
     def recommend(self) -> List[Song]:
         """
@@ -31,8 +62,8 @@ class CosineSimilarity:
         user_vector = self.get_user_vector()
         song_vectors = [song.to_vector() for song in self.all_songs]
         
-        # Calculate cosine similarities between the user profile vector and all song vectors
-        similarities = cosine_similarity([user_vector], song_vectors)[0]
+        # Using native cosine similarities calculator for cosine similarities
+        similarities = self.get_all_cosine_similarity(user_vector, song_vectors)
         
         # Sort songs by similarity (most similar songs first)
         sorted_song_indices = np.argsort(similarities)[::-1]
