@@ -1,10 +1,8 @@
 import csv
 from typing import List
-import sys
-sys.path.append(".../soundsage")
-from Data import Song
 import ast
 import os
+from Data.Song import Song
 
 class SongStore:
     def __init__(self, file_name: str):

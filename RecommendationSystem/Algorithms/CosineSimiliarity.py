@@ -1,13 +1,5 @@
 from typing import List
-import sys, os
-print()
-os_path = os.path.join(os.path.dirname(sys.path[0]).strip("RecommendationSystem"), 'Data')
-# print(os_path)
-sys.path.append(os_path)
-# print(os.path.dirname(sys.path[0]))
-print()
-# os.path.join(os.path.dirname(sys.path[0]))
-from Data import Song
+from Data.Song import Song
 from RecommendationSystem import Recommender
 from UserProfileSystem import UserProfile
 import numpy as np
