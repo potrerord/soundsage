@@ -24,28 +24,31 @@ class CosineSimilarity:
         ])
     
     def calculate_cosine_similarity(self, user_vector, song_vector): 
-        '''
-        Calculate individual cosine similarity
-        '''
-        # Calculate dot product
+        """
+        Calculate cosine similarity between two vectors.
+        """
         dot_product = np.dot(user_vector, song_vector)
-        # Calculate the magnitude of each vector
         magnitude_user = np.linalg.norm(user_vector)
         magnitude_song = np.linalg.norm(song_vector)
 
-        # Compute cosine similarity
-        cosine_similarity = dot_product / (magnitude_user * magnitude_song)
+        # Add small epsilon to avoid division by zero
+        epsilon = 1e-10
+        cosine_similarity = dot_product / (magnitude_user * magnitude_song + epsilon)
         return cosine_similarity
     
     def get_all_cosine_similarity(self, user_vector, song_vectors): 
-        '''
-        Compile all cosine similarity 
-        '''
-        similarities = []
-        for vector in song_vectors: 
-            similarity = self.calculate_cosine_similarity(user_vector, vector)
-            similarities.append(similarity)
-        return np.array(similarities)
+        """
+        Vectorized computation of cosine similarity for multiple song vectors.
+        """
+        song_matrix = np.array(song_vectors)  # Convert list of vectors to a NumPy matrix
+        dot_products = np.dot(song_matrix, user_vector)  # Compute dot products
+        user_magnitude = np.linalg.norm(user_vector)
+        song_magnitudes = np.linalg.norm(song_matrix, axis=1)  # Magnitudes for each song vector
+
+        # Compute cosine similarities and avoid division by zero
+        epsilon = 1e-10
+        cosine_similarities = dot_products / (user_magnitude * song_magnitudes + epsilon)
+        return cosine_similarities
 
     def recommend(self) -> List[Song]:
         """
