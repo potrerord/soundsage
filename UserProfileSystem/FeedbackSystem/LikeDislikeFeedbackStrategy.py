@@ -1,4 +1,4 @@
-from UserProfileSystem import UserProfile
+from UserProfileSystem.UserProfile import UserProfile
 from Data import Song
 
 class LikeDislikeFeedbackStrategy:
