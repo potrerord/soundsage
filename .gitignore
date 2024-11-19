@@ -1,3 +1,9 @@
+# Added by Anthony
+.DS_Store
+**.csv
+.venv
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
