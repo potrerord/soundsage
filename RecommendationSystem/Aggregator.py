@@ -31,8 +31,6 @@ class Aggregator:
         all_song_scores = Counter()
 
         user_profile = self.user_profile_store.get_user_profile(self.user_id)
-        print("user profile in aggregator")
-        print(user_profile)
 
         if user_profile is None or user_profile.is_cold_start():
             print('applying cold start strategy')
