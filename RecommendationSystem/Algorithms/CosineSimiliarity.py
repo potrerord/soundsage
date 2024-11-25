@@ -1,5 +1,5 @@
 from Data.Song import Song
-from RecommendationSystem import Recommender
+from RecommendationSystem.Recommender import Recommender
 from UserProfileSystem import UserProfile
 import numpy as np
 from numpy.typing import NDArray
