@@ -11,6 +11,13 @@ from UserProfileSystem.UserProfileStore import UserProfileStore
 class Aggregator:
     DEFAULT_TOP_N: int = 5
 
+    user_id: str
+    user_profile_store: UserProfileStore
+    recommenders: list[Recommender]
+    cold_start_strategy: RandomSamplingStrategy
+    weights: list[float]
+    top_n: int
+
     def __init__(
             self: "Aggregator",
             user_id: str,
@@ -44,19 +51,19 @@ class Aggregator:
         :param top_n: Number of songs to return as recommendations.
         :return: List of top N recommended songs.
         """
-        all_song_scores: Counter = Counter()
+        all_song_scores: Counter[Song] = Counter()
 
         user_profile: UserProfile = self.user_profile_store.get_user_profile(self.user_id)
 
         if user_profile is None or user_profile.is_cold_start():
-            print('applying cold start strategy')
+            print("\nApplying cold start strategy...")
             return self.cold_start_strategy.recommend()
 
         # Collect recommendations from each recommender and add scores based on weights
         recommender: Recommender
         weight: float
         for recommender, weight in zip(self.recommenders, self.weights):
-            recommendations = recommender.recommend()
+            recommendations: list[Song] = recommender.recommend()
 
             # For each song, add the weighted score to the all_song_scores
             song: Song
@@ -64,6 +71,7 @@ class Aggregator:
                 all_song_scores[song] += weight
 
         # Sort songs by total score (descending) and get the top N
-        recommended_songs: list[Song] = [song for song, _ in all_song_scores.most_common(self.top_n)]
+        song: Song
+        recommended_songs: list[Song] = [song for (song, _) in all_song_scores.most_common(self.top_n)]
 
         return recommended_songs
