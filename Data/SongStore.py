@@ -1,32 +1,55 @@
 import csv
-from typing import List
 import ast
 import os
+from io import TextIOWrapper
+from typing import TextIO
+
 from Data.Song import Song
 
+
 class SongStore:
-    def __init__(self, file_name: str):
+    DATA_DIRNAME: str = "Data"
+
+    file_path: str
+    songs: list[Song]
+
+    def __init__(
+            self: "SongStore",
+            file_name: str,
+    ) -> None:
         """
         Initializes the SongStore with the given CSV file path.
 
         :param file_name: The name of the CSV file (e.g., 'tracks_features.csv').
         """
-        self.file_path = os.path.join('Data', file_name)  # Combine folder and file name
+        self.file_path = os.path.join(self.DATA_DIRNAME, file_name)  # Combine folder and file name
         self.songs = self._load_songs()
 
-    def _load_songs(self) -> List[Song]:
+    def _load_songs(self: "SongStore") -> list[Song]:
         """
         Loads songs from the CSV file and returns a list of Song objects.
 
         :return: A list of Song instances.
         """
-        print("attempting to load songs")
-        songs = []
+        print(f'\nBeginning data load from "{self.file_path}"...')
+        songs: list[Song] = []
+
         try:
+            i: int = 0
+            file: TextIO
             with open(self.file_path, newline='', encoding='utf-8') as file:
-                reader = csv.DictReader(file)
+                # Count the number of data points.
+                total_rows = sum(1 for _ in file) - 1
+                file.seek(0)
+
+                reader: csv.DictReader = csv.DictReader(file)
+
+                row: dict[str, str]
                 for row in reader:
-                    song = Song(
+                    i += 1
+                    print(f"\rLoading song {i:,} of {total_rows:,} ({i / total_rows:.0%})...", end="")
+
+                    song: Song = Song(
                         track_id=row['id'],
                         name=row['name'],
                         album=row['album'],
@@ -55,9 +78,15 @@ class SongStore:
                     songs.append(song)
         except Exception as e:
             print(f"Error reading the CSV file: {e}")
+
+        print(f'\nSuccessfully loaded {len(songs)} songs from" {self.file_path}".')
+
         return songs
 
-    def _parse_list(self, field: str) -> List[str]:
+    def _parse_list(
+            self: "SongStore",
+            field: str,
+    ) -> list[str]:
         """
         Helper method to parse string fields that represent lists (e.g., ['Rage Against The Machine']).
 
@@ -66,10 +95,10 @@ class SongStore:
         """
         try:
             return ast.literal_eval(field)
-        except:
+        except Exception:
             return []
 
-    def get_all_songs(self) -> List[Song]:
+    def get_all_songs(self: "SongStore") -> list[Song]:
         """
         Returns the list of all songs.
 
@@ -77,7 +106,10 @@ class SongStore:
         """
         return self.songs
 
-    def get_song_by_id(self, track_id: str) -> Song:
+    def get_song_by_id(
+            self: "SongStore",
+            track_id: str,
+    ) -> Song:
         """
         Returns a song based on its track_id.
 
