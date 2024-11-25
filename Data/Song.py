@@ -1,14 +1,34 @@
-from typing import List
 import numpy as np
 
+
 class Song:
-    def __init__(self, track_id: str, name: str, album: str, album_id: str, 
-                 artists: List[str], artist_ids: List[str], track_number: int, 
-                 disc_number: int, explicit: bool, danceability: float, energy: float, 
-                 key: int, loudness: float, mode: int, speechiness: float, 
-                 acousticness: float, instrumentalness: float, liveness: float, 
-                 valence: float, tempo: float, duration_ms: int, time_signature: float, 
-                 year: int, release_date: str):
+    def __init__(
+            self,
+            track_id: str,
+            name: str,
+            album: str,
+            album_id: str,
+            artists: list[str],
+            artist_ids: list[str],
+            track_number: int,
+            disc_number: int,
+            explicit: bool,
+            danceability: float,
+            energy: float,
+            key: int,
+            loudness: float,
+            mode: int,
+            speechiness: float,
+            acousticness: float,
+            instrumentalness: float,
+            liveness: float,
+            valence: float,
+            tempo: float,
+            duration_ms: int,
+            time_signature: float,
+            year: int,
+            release_date: str
+    ) -> None:
         self.track_id = track_id
         self.name = name
         self.album = album
@@ -34,13 +54,23 @@ class Song:
         self.year = year
         self.release_date = release_date
 
-    def to_vector(self):
+    def to_vector(self: "Song") -> np.ndarray[np.shape, np.dtype[np.float64]]:
         """
         Converts the song's features into a numerical vector for cosine similarity calculation.
         """
-        return np.array([self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness])
-    
-    def __repr__(self):
+        return np.array([
+            self.danceability,
+            self.energy,
+            self.valence,
+            self.acousticness,
+            self.tempo,
+            self.loudness
+        ], dtype=np.float64)
+
+    def __repr__(self: "Song") -> str:
         return (f"Song(name={self.name}, track_id={self.track_id}, "
-            f"danceability={self.danceability}, energy={self.energy}, "
-            f"valence={self.valence})")
+                f"danceability={self.danceability}, energy={self.energy}, "
+                f"valence={self.valence})")
+
+    def __str__(self: "Song") -> str:
+        return f"Song({self.name} by {self.artists})"
