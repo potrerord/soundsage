@@ -1,61 +1,133 @@
-from sklearn.neighbors import NearestNeighbors
 import numpy as np
-from typing import List
-from Data import Song
+from Data.Song import Song
 from UserProfileSystem.UserProfile import UserProfile
 
-class KNNRecommender:
-    def __init__(self, user_profile: UserProfile, all_songs: List[Song], k: int = 5):
-        """
-        Initializes the KNN recommender using scikit-learn's NearestNeighbors.
 
-        :param all_songs: List of all available Song objects.
-        :param k: Number of nearest neighbors to consider.
+class KNNRecommender:
+    DEFAULT_K: int = 5
+
+    FEATURE_COLUMNS: list[str] = [
+        "danceability",
+        "energy",
+        "key",
+        "loudness",
+        "mode",
+        "speechiness",
+        "acousticness",
+        "instrumentalness",
+        "liveness",
+        "valence",
+        "tempo",
+    ]
+
+    user_profile: UserProfile
+    all_songs: list[Song]
+    k: int
+
+    def __init__(
+            self: "KNNRecommender",
+            user_profile: UserProfile,
+            all_songs: list[Song],
+            k: int = DEFAULT_K,
+    ) -> None:
+        """Instantiate and initialize a KNN recommender.
+        
+        Parameters:
+            user_profile (UserProfile):
+                The user profile that will be used to compute the
+                recommendations.
+            all_songs (list[Song]):
+                The songs that will be used to compute the
+                recommendations.
+            k (int):
+                The number of neighbors to use.
         """
+
         self.user_profile = user_profile
         self.all_songs = all_songs
-        self.k = k
+        self.k = k  # Number of neighbors to consider
 
-        # Extract feature vectors from the songs
-        self.song_features = np.array([song.to_vector() for song in all_songs])
-
-        # Initialize the KNN model
-        self.model = NearestNeighbors(n_neighbors=self.k, metric='cosine')
-        self.model.fit(self.song_features)
-    
-    def get_user_vector(self):
-        """
-        Converts the user's profile into a vector for cosine similarity calculation.
-        """
-        return np.array([
-            self.user_profile.danceability,
-            self.user_profile.energy,
-            self.user_profile.valence,
-            self.user_profile.acousticness,
-            self.user_profile.tempo,
-            self.user_profile.loudness
-        ])
-    
-    def recommend(self) -> List[Song]:
-        """
-        Recommends songs using the KNN algorithm.
-
-        :param user_profile: UserProfile object representing the user's preferences.
-        :return: List of recommended Song objects.
-        """
-        # Get the user's feature vector
-        user_vector = self.get_user_vector()
-
-        # Find the nearest neighbors
-        distances, indices = self.model.kneighbors([user_vector])
-
-        # Retrieve the recommended songs
-        recommended_songs = [self.all_songs[i] for i in indices[0]]
-
-        print('recommended songs from KNN')
-        print(recommended_songs)
+    def recommend(
+            self: "KNNRecommender",
+            top_n: int = 10,
+    ) -> list[Song]:
+        """Recommend a list of songs based on the Euclidean distance
+        between the user profile vector and each song vector, picking
+        the top n most similar songs from the k nearest neighbors.
         
+        Parameters:
+            top_n (int): The number of songs to recommend.
+        
+        Returns:
+            A list of Song objects.
+        """
+
+        # Get the user profile vector.
+        user_vector: np.ndarray = self._get_user_vector()
+
+        # Calculate distances from user vector to all songs.
+        distances: list[tuple[Song, float]] = []
+        song: Song
+        for song in self.all_songs:
+            song_vector = self._get_song_vector(song)
+            distance = self._euclidean_distance(user_vector, song_vector)
+            distances.append((song, distance))
+
+        # Sort by distance (ascending order).
+        distances.sort(key=lambda x: x[1])
+
+        # Select the top k neighbors.
+        nearest_neighbors = distances[:self.k]
+
+        # Aggregate and return top n recommendations based on nearest neighbors.
+        recommended_songs = [song for song, _ in nearest_neighbors][:top_n]
+
         return recommended_songs
 
-    def __repr__(self):
-        return f"KNNRecommender(all_songs_count={len(self.all_songs)}, k={self.k})"
+    def _get_user_vector(self: "KNNRecommender") -> np.ndarray:
+        """Create a feature vector by averaging features of the user's 
+        liked songs.
+        
+        Returns:
+            A feature vector.
+        """
+
+        liked_songs = self.user_profile.get_favorite_tracks()
+        if not liked_songs:
+            return np.zeros(len(self.FEATURE_COLUMNS))  # Handle cold start
+
+        vectors = [self._get_song_vector(song) for song in liked_songs]
+
+        return np.mean(vectors, axis=0)
+
+    def _get_song_vector(
+            self: "KNNRecommender",
+            song: Song,
+    ) -> np.ndarray:
+        """Convert a song's features into a numeric vector.
+        
+        Parameters:
+            song (Song): The song to convert.
+            
+        Returns:
+            A numeric vector.
+        """
+
+        return np.array([getattr(song, col, 0.0) for col in self.FEATURE_COLUMNS], dtype=float)
+
+    def _euclidean_distance(
+            self: "KNNRecommender",
+            vec1: np.ndarray,
+            vec2: np.ndarray,
+    ) -> float:
+        """Compute the Euclidean distance between two vectors.
+        
+        Parameters:
+            vec1 (np.ndarray): The first vector.
+            vec2 (np.ndarray): The second vector.
+        
+        Returns:
+            The Euclidean distance between the two vectors.
+        """
+
+        return np.sqrt(np.sum((vec1 - vec2) ** 2))
