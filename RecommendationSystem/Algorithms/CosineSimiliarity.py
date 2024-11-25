@@ -24,17 +24,21 @@ class CosineSimilarity:
             self.user_profile.loudness
         ])
 
-    def calculate_cosine_similarity(self, user_vector, song_vector):
+    def calculate_cosine_similarity(
+            self: "CosineSimilarity",
+            user_vector: np.ndarray,
+            song_vector: np.ndarray,
+    ) -> float:
         """
         Calculate cosine similarity between two vectors.
         """
-        dot_product = np.dot(user_vector, song_vector)
-        magnitude_user = np.linalg.norm(user_vector)
-        magnitude_song = np.linalg.norm(song_vector)
+        dot_product: float = np.dot(user_vector, song_vector)
+        magnitude_user: np.floating = np.linalg.norm(user_vector)
+        magnitude_song: np.floating = np.linalg.norm(song_vector)
 
         # Add small epsilon to avoid division by zero
-        epsilon = 1e-10
-        cosine_similarity = dot_product / (magnitude_user * magnitude_song + epsilon)
+        epsilon: float = 1e-10
+        cosine_similarity: float = dot_product / (magnitude_user * magnitude_song + epsilon)
         return cosine_similarity
 
     def _get_all_cosine_similarity(
@@ -53,7 +57,7 @@ class CosineSimilarity:
         # Compute cosine similarities and avoid division by zero
         epsilon: float = 1e-10
         cosine_similarities: np.ndarray = dot_products / (user_magnitude * song_magnitudes + epsilon)
-        
+
         return cosine_similarities
 
     def recommend(self) -> list[Song]:
