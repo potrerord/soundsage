@@ -59,7 +59,7 @@ def main() -> None:
     print("\nGetting recommended songs...")
     recommended_songs: list[Song] = recommender_aggregator.recommend()
 
-    print(f"\nRecommended songs:\n{[str(song) for song in recommended_songs]}")
+    print(f"\nRecommended songs:\n{"\n".join([str(song) for song in recommended_songs])}")
 
     print("\nProviding mock feedback...")
     like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[0], liked=True)

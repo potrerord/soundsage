@@ -108,6 +108,6 @@ class CosineSimilarity(Recommender):
         recommended_songs: list[Song] = [pair[1] for pair in sorted_similarity_song_pairs[:self.top_n]]
 
         print("Recommended songs from cosine similarity:")
-        print([str(song) for song in recommended_songs])
+        print("\n".join([str(song) for song in recommended_songs]))
 
         return recommended_songs
