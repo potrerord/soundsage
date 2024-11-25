@@ -1,8 +1,15 @@
 import random
 from Data import Song
 
+
 class RandomSamplingStrategy:
-    def __init__(self, all_songs: [Song], top_n: int = 5):
+    DEFAULT_TOP_N: int = 5
+
+    def __init__(
+            self: "RandomSamplingStrategy",
+            all_songs: list[Song],
+            top_n: int = DEFAULT_TOP_N,
+    ) -> None:
         """
         Initializes the RandomSamplingStrategy with a list of all songs and the number of recommendations.
 
@@ -12,14 +19,14 @@ class RandomSamplingStrategy:
         self.all_songs = all_songs
         self.top_n = top_n
 
-    def recommend(self) -> [Song]:
+    def recommend(self: "RandomSamplingStrategy") -> list[Song]:
         """
         Recommends the top N random songs from the dataset for cold start.
 
         :return: List of N randomly selected Song objects.
         """
         # Randomly select top N songs from the list of all songs
-        random_songs = random.sample(self.all_songs, self.top_n)
-        
+        random_songs: list[Song] = random.sample(self.all_songs, self.top_n)
+
         # Return the list of randomly selected songs
         return random_songs
