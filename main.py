@@ -13,11 +13,13 @@ USER_FILENAME: str = "users.csv"
 
 DEFAULT_USER_ID: str = "1"
 
+
 def main() -> None:
+    print(f"\nWelcome to SoundSage!")
     # Load the dataset into memory.
-    print("\nLoading dataset into memory...")
+    print(f"\nLoading song data into memory from '{DATA_FILENAME}'...")
     song_store: SongStore = SongStore(file_name=DATA_FILENAME)
-    
+
     # Get list of all songs from data.
     print("\nGetting all songs...")
     all_songs: list[Song] = song_store.get_all_songs()
@@ -26,25 +28,28 @@ def main() -> None:
     print("\nReading user profile...")
     user_profile_store: UserProfileStore = UserProfileStore(file_name=USER_FILENAME)
     user_profile: UserProfile = user_profile_store.get_user_profile(user_id=DEFAULT_USER_ID)
-    print(user_profile)
+    print(f"\nUser profile:\n{user_profile}")
 
     if user_profile is None:
         print(f"\nCreating new user...")
-        user_profile_store.update_user_profile(user_id=DEFAULT_USER_ID, user_profile=UserProfile(user_id=DEFAULT_USER_ID))
+        user_profile_store.update_user_profile(user_id=DEFAULT_USER_ID,
+                                               user_profile=UserProfile(user_id=DEFAULT_USER_ID))
 
     # cold start strategy
-    random_sampling_strategy = RandomSamplingStrategy(all_songs=all_songs)
+    random_sampling_strategy: RandomSamplingStrategy = RandomSamplingStrategy(all_songs=all_songs)
 
     # feedback strategy
-    like_dislike_feedback_strategy = LikeDislikeFeedbackStrategy(user_profile_store=user_profile_store)
+    like_dislike_feedback_strategy: LikeDislikeFeedbackStrategy = LikeDislikeFeedbackStrategy(
+        user_profile_store=user_profile_store)
 
     # recommendation algorithms
-    cosine_similarity = CosineSimilarity(user_profile=user_profile, all_songs=all_songs)
-    knn = KNNRecommender(user_profile=user_profile, all_songs=all_songs)
+    cosine_similarity: CosineSimilarity = CosineSimilarity(user_profile=user_profile, all_songs=all_songs)
+    knn: KNNRecommender = KNNRecommender(user_profile=user_profile, all_songs=all_songs)
 
     # recommender
-    recommender = Aggregator(user_id="1", recommenders=[cosine_similarity, knn], weights=[0.2, 0.8],
-                             user_profile_store=user_profile_store, cold_start_strategy=random_sampling_strategy)
+    recommender: Aggregator = Aggregator(user_id="1", recommenders=[cosine_similarity, knn], weights=[0.2, 0.8],
+                                         user_profile_store=user_profile_store,
+                                         cold_start_strategy=random_sampling_strategy)
 
     # Get the top 3 popular songs for cold start
     print("\nGetting recommended songs...")
@@ -53,11 +58,11 @@ def main() -> None:
     print("\nRecommended songs:")
     print(recommended_songs)
 
-    print("providing mock feedback")
+    print("\nProviding mock feedback...")
     like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[0], liked=True)
     like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[1], liked=False)
 
-    print("updated user profile after feedback")
+    print("\nUpdated user profile after feedback:")
     print(user_profile)
 
 
