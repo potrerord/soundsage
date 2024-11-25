@@ -47,16 +47,19 @@ def main() -> None:
     knn: KNNRecommender = KNNRecommender(user_profile=user_profile, all_songs=all_songs)
 
     # recommender
-    recommender: Aggregator = Aggregator(user_id="1", recommenders=[cosine_similarity, knn], weights=[0.2, 0.8],
-                                         user_profile_store=user_profile_store,
-                                         cold_start_strategy=random_sampling_strategy)
+    recommender_aggregator: Aggregator = Aggregator(
+        user_id="1",
+        recommenders=[cosine_similarity, knn],
+        weights=[0.2, 0.8],
+        user_profile_store=user_profile_store,
+        cold_start_strategy=random_sampling_strategy,
+    )
 
     # Get the top 3 popular songs for cold start
     print("\nGetting recommended songs...")
-    recommended_songs = recommender.recommend()
+    recommended_songs: list[Song] = recommender_aggregator.recommend()
 
-    print("\nRecommended songs:")
-    print(recommended_songs)
+    print("\nRecommended songs:\n{*recommended_songs}", sep='\n')
 
     print("\nProviding mock feedback...")
     like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[0], liked=True)
