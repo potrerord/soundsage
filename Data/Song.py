@@ -73,4 +73,4 @@ class Song:
                 f"valence={self.valence})")
 
     def __str__(self: "Song") -> str:
-        return f"Song({self.name} by {self.artists})"
+        return f"'{self.name}' by {self.artists}"
