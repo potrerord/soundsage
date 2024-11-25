@@ -107,7 +107,11 @@ class CosineSimilarity(Recommender):
         # Extract the top N recommended songs based on sorted similarity scores
         recommended_songs: list[Song] = [pair[1] for pair in sorted_similarity_song_pairs[:self.top_n]]
 
-        print("Recommended songs from cosine similarity:")
-        print("\n".join([str(song) for song in recommended_songs]))
+        print("Recommended songs from cosine similarity: [")
+        i: int = 0
+        for song in recommended_songs:
+            print(f"    ({i}) {song}")
+            i += 1
+        print("]")
 
         return recommended_songs
