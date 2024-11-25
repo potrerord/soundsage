@@ -1,9 +1,10 @@
 import numpy as np
 from Data.Song import Song
+from RecommendationSystem.Recommender import Recommender
 from UserProfileSystem.UserProfile import UserProfile
 
 
-class KNNRecommender:
+class KNNRecommender(Recommender):
     DEFAULT_K: int = 5
 
     FEATURE_COLUMNS: list[str] = [
