@@ -17,6 +17,7 @@ class UserProfile:
     loudness: float
     # speechiness: float
 
+    # XXX are genre and artists represented by strings?
     genres: Counter[str]
     artists: Counter[str]
     popular_tracks: Counter[Song]
