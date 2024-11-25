@@ -1,4 +1,3 @@
-from typing import List
 from Data.Song import Song
 from RecommendationSystem import Recommender
 from UserProfileSystem import UserProfile
