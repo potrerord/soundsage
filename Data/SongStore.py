@@ -5,6 +5,7 @@ from io import TextIOWrapper
 from typing import TextIO
 
 from Data.Song import Song
+import Data.constants as c
 
 
 class SongStore:
@@ -34,21 +35,22 @@ class SongStore:
         print(f'\nBeginning data load from "{self.file_path}"...')
         songs: list[Song] = []
 
-        try:
+        file: TextIO
+        with open(self.file_path, newline='', encoding='utf-8') as file:
+            # Count the number of data points.
+            total_songs = sum(1 for _ in file) - 1
+            file.seek(0)
+
+            reader: csv.DictReader = csv.DictReader(file)
+
+            row: dict[str, str]
             i: int = 0
-            file: TextIO
-            with open(self.file_path, newline='', encoding='utf-8') as file:
-                # Count the number of data points.
-                total_rows = sum(1 for _ in file) - 1
-                file.seek(0)
-
-                reader: csv.DictReader = csv.DictReader(file)
-
-                row: dict[str, str]
-                for row in reader:
-                    i += 1
-                    print(f"\rLoading song {i:,} of {total_rows:,} ({i / total_rows:.0%})...", end="")
-
+            invalid_song_count: int = 0
+            for row in reader:
+                i += 1
+                print(f"\r ({i / total_songs:.0%}) Loading song {i:,} of {total_songs:,} ({invalid_song_count:,} invalid songs discarded)...", end="")
+                
+                try:
                     song: Song = Song(
                         track_id=row['id'],
                         name=row['name'],
@@ -76,10 +78,10 @@ class SongStore:
                         release_date=row['release_date']
                     )
                     songs.append(song)
-        except Exception as e:
-            print(f"Error reading the CSV file: {e}")
+                except ValueError:
+                    invalid_song_count += 1
 
-        print(f'\nSuccessfully loaded {len(songs)} songs from" {self.file_path}".')
+        print(f'\nSuccessfully loaded {len(songs):,} of {total_songs:,} songs from "{self.file_path}".')
 
         return songs
 
@@ -109,7 +111,7 @@ class SongStore:
     def get_song_by_id(
             self: "SongStore",
             track_id: str,
-    ) -> Song:
+    ) -> Song | None:
         """
         Returns a song based on its track_id.
 

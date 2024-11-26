@@ -209,23 +209,24 @@ class UserProfile:
     def validate_features(
             self: "UserProfile",
     ) -> None:
+        if not (c.ACOUSTICNESS_MIN <= self.acousticness <= c.ACOUSTICNESS_MAX):
+            raise ValueError(f"invalid user acousticness: {self.acousticness:.4f} not in range [{c.ACOUSTICNESS_MIN}, {c.ACOUSTICNESS_MAX}].")
+        
         if not (c.DANCEABILITY_MIN <= self.danceability <= c.DANCEABILITY_MAX):
-            raise ValueError(f"invalid danceability: {self.danceability:.4f}")
+            raise ValueError(f"invalid user danceability: {self.danceability:.4f} not in range [{c.DANCEABILITY_MIN}, {c.DANCEABILITY_MAX}].")
         
         if not (c.ENERGY_MIN <= self.energy <= c.ENERGY_MAX):
-            raise ValueError(f"invalid energy: {self.energy:.4f}")
-        
-        if not (c.VALENCE_MIN <= self.valence <= c.VALENCE_MAX):
-            raise ValueError(f"invalid valence: {self.valence:.4f}")
-        
-        if not (c.ACOUSTICNESS_MIN <= self.acousticness <= c.ACOUSTICNESS_MAX):
-            raise ValueError(f"invalid acousticness: {self.acousticness:.4f}")
-        
-        if not (c.TEMPO_MIN_USEFUL <= self.tempo <= c.TEMPO_MAX_USEFUL):
-            raise ValueError(f"invalid tempo: {self.tempo:.4f}")
+            raise ValueError(f"invalid user energy: {self.energy:.4f} not in range [{c.ENERGY_MIN}, {c.ENERGY_MAX}].")
         
         if not (c.LOUDNESS_MIN_USEFUL <= self.loudness <= c.LOUDNESS_MAX):
-            raise ValueError(f"invalid loudness: {self.loudness:.4f}")
+            raise ValueError(f"invalid user loudness: {self.loudness:.4f} not in range [{c.LOUDNESS_MIN_USEFUL}, {c.LOUDNESS_MAX}].")
+        
+        if not (c.TEMPO_MIN_USEFUL <= self.tempo <= c.TEMPO_MAX_USEFUL):
+            raise ValueError(f"invalid user tempo: {self.tempo:.4f} not in range [{c.TEMPO_MIN_USEFUL}, {c.TEMPO_MAX_USEFUL}].")
+        
+        if not (c.VALENCE_MIN <= self.valence <= c.VALENCE_MAX):
+            raise ValueError(f"invalid user valence: {self.valence:.4f} not in range [{c.VALENCE_MIN}, {c.VALENCE_MAX}].")
+        
 
         # TODO add more
         # speechiness: float
