@@ -9,17 +9,20 @@ import Data.constants as c
 
 
 class SongStore:
+    # Default name for the "Data" directory.
     DATA_DIRNAME: str = "Data"
 
+    # The path to the CSV song data file.
     file_path: str
+
+    # A list of parsed Song objects.
     songs: list[Song]
 
     def __init__(
             self: "SongStore",
             file_name: str,
     ) -> None:
-        """
-        Initializes the SongStore with the given CSV file path.
+        """Initialize the SongStore with the given CSV file path.
 
         :param file_name: The name of the CSV file (e.g., 'tracks_features.csv').
         """
@@ -27,8 +30,8 @@ class SongStore:
         self.songs = self._load_songs()
 
     def _load_songs(self: "SongStore") -> list[Song]:
-        """
-        Loads songs from the CSV file and returns a list of Song objects.
+        """Load songs from the CSV file and returns a list of Song
+        objects.
 
         :return: A list of Song instances.
         """
@@ -38,18 +41,21 @@ class SongStore:
         file: TextIO
         with open(self.file_path, newline='', encoding='utf-8') as file:
             # Count the number of data points.
-            total_songs = sum(1 for _ in file) - 1
+            total_songs: int = sum(1 for _ in file) - 1
             file.seek(0)
 
             reader: csv.DictReader = csv.DictReader(file)
 
             row: dict[str, str]
-            i: int = 0
+            row_num: int = 0
             invalid_song_count: int = 0
             for row in reader:
-                i += 1
-                print(f"\r ({i / total_songs:.0%}) Loading song {i:,} of {total_songs:,} ({invalid_song_count:,} invalid songs discarded)...", end="")
-                
+                row_num += 1
+                print(
+                    f"\r ({row_num / total_songs:.0%}) Loading song {row_num:,} of {total_songs:,} ({invalid_song_count:,} invalid songs discarded)...",
+                    end="")
+
+                # Attempt to save a song.
                 try:
                     song: Song = Song(
                         track_id=row['id'],
@@ -78,6 +84,7 @@ class SongStore:
                         release_date=row['release_date']
                     )
                     songs.append(song)
+                # If the song has invalid data, skip it.
                 except ValueError:
                     invalid_song_count += 1
 
@@ -85,24 +92,8 @@ class SongStore:
 
         return songs
 
-    def _parse_list(
-            self: "SongStore",
-            field: str,
-    ) -> list[str]:
-        """
-        Helper method to parse string fields that represent lists (e.g., ['Rage Against The Machine']).
-
-        :param field: A string representation of a list (e.g., "['Artist1', 'Artist2']")
-        :return: A list of strings.
-        """
-        try:
-            return ast.literal_eval(field)
-        except Exception:
-            return []
-
     def get_all_songs(self: "SongStore") -> list[Song]:
-        """
-        Returns the list of all songs.
+        """Return the list of all songs.
 
         :return: A list of all Song instances.
         """
@@ -112,8 +103,7 @@ class SongStore:
             self: "SongStore",
             track_id: str,
     ) -> Song | None:
-        """
-        Returns a song based on its track_id.
+        """Return a song based on its track_id.
 
         :param track_id: The unique track ID of the song.
         :return: The Song instance with the matching track ID, or None if not found.
@@ -122,3 +112,18 @@ class SongStore:
             if song.track_id == track_id:
                 return song
         return None
+
+    @staticmethod
+    def _parse_list(
+            field: str,
+    ) -> list[str]:
+        """Helper method to parse string fields that represent lists
+        (e.g., ['Rage Against The Machine']).
+
+        :param field: A string representation of a list (e.g., "['Artist1', 'Artist2']")
+        :return: A list of strings.
+        """
+        try:
+            return ast.literal_eval(field)
+        except Exception:
+            return []
