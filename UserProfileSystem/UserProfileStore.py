@@ -5,6 +5,8 @@ from UserProfileSystem.UserProfile import UserProfile
 import csv
 import os
 
+import Data.constants as c
+
 
 class UserProfileStore:
     DATA_DIRNAME: str = "Data"
@@ -12,7 +14,7 @@ class UserProfileStore:
 
     def __init__(
             self: "UserProfileStore",
-            file_name: str
+            file_name: str,
     ) -> None:
         self.file_path = os.path.join(self.DATA_DIRNAME, file_name)
 

@@ -4,6 +4,7 @@ from typing import List
 from Data import Song
 import numpy as np
 
+import Data.constants as c
 
 class UserProfile:
     DEFAULT_TOP_N: int = 5
@@ -44,6 +45,12 @@ class UserProfile:
 
         # Count total songs processed for averaging
         self.song_count = 0
+        
+    def __repr__(self: "UserProfile") -> str:
+        return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
+                f"valence={self.valence:.2f}, acousticness={self.acousticness:.2f}, "
+                f"tempo={self.tempo:.2f}, loudness={self.loudness:.2f}, "
+                f"top_genres={self.get_top_genres()}, top_artists={self.get_top_artists()})")
 
     def __str__(self: "UserProfile") -> str:
         return (
@@ -74,7 +81,11 @@ class UserProfile:
         self.energy = ((self.energy * self.song_count) + song.energy) / (self.song_count + 1)
         self.valence = ((self.valence * self.song_count) + song.valence) / (self.song_count + 1)
         self.acousticness = ((self.acousticness * self.song_count) + song.acousticness) / (self.song_count + 1)
+        
+        # FIXME average tempo is not a good predictor for liked songs unless it's an extremely low stddev.
         self.tempo = ((self.tempo * self.song_count) + song.tempo) / (self.song_count + 1)
+        print(self.tempo)
+        
         self.loudness = ((self.loudness * self.song_count) + song.loudness) / (self.song_count + 1)
 
         # Update categorical and textual features
@@ -194,9 +205,27 @@ class UserProfile:
                 ])
                 and not self.genres
                 and not self.artists)
+    
+    def validate_features(
+            self: "UserProfile",
+    ) -> None:
+        if not (c.DANCEABILITY_MIN <= self.danceability <= c.DANCEABILITY_MAX):
+            raise ValueError(f"invalid danceability: {self.danceability:.4f}")
+        
+        if not (c.ENERGY_MIN <= self.energy <= c.ENERGY_MAX):
+            raise ValueError(f"invalid energy: {self.energy:.4f}")
+        
+        if not (c.VALENCE_MIN <= self.valence <= c.VALENCE_MAX):
+            raise ValueError(f"invalid valence: {self.valence:.4f}")
+        
+        if not (c.ACOUSTICNESS_MIN <= self.acousticness <= c.ACOUSTICNESS_MAX):
+            raise ValueError(f"invalid acousticness: {self.acousticness:.4f}")
+        
+        if not (c.TEMPO_MIN_USEFUL <= self.tempo <= c.TEMPO_MAX_USEFUL):
+            raise ValueError(f"invalid tempo: {self.tempo:.4f}")
+        
+        if not (c.LOUDNESS_MIN_USEFUL <= self.loudness <= c.LOUDNESS_MAX):
+            raise ValueError(f"invalid loudness: {self.loudness:.4f}")
 
-    def __repr__(self: "UserProfile") -> str:
-        return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
-                f"valence={self.valence:.2f}, acousticness={self.acousticness:.2f}, "
-                f"tempo={self.tempo:.2f}, loudness={self.loudness:.2f}, "
-                f"top_genres={self.get_top_genres()}, top_artists={self.get_top_artists()})")
+        # TODO add more
+        # speechiness: float
