@@ -67,7 +67,7 @@ class KNNRecommender(Recommender):
         user_vector: np.ndarray = self._get_user_vector()
 
         # Calculate distances from user vector to all songs.
-        distances: list[tuple[Song, float]] = []
+        distances: list[tuple[Song, np.floating]] = []
         song: Song
         for song in self.all_songs:
             song_vector = self._get_song_vector(song)
@@ -83,6 +83,13 @@ class KNNRecommender(Recommender):
         # Aggregate and return top n recommendations based on nearest neighbors.
         recommended_songs = [song for song, _ in nearest_neighbors][:top_n]
 
+        print("Recommended songs from KNN: [")
+        i: int = 0
+        for song in recommended_songs:
+            print(f"    ({i}) {song}")
+            i += 1
+        print("]")
+        
         return recommended_songs
 
     def _get_user_vector(self: "KNNRecommender") -> np.ndarray:
@@ -120,7 +127,7 @@ class KNNRecommender(Recommender):
             self: "KNNRecommender",
             vec1: np.ndarray,
             vec2: np.ndarray,
-    ) -> float:
+    ) -> np.floating:
         """Compute the Euclidean distance between two vectors.
         
         Parameters:
