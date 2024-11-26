@@ -26,6 +26,7 @@ class LikeDislikeFeedbackStrategy:
         # Define the weight based on feedback
         feedback_weight = self.like_weight if liked else self.dislike_weight
 
+        # FIXME
         # Update numerical features in the user profile based on feedback
         user_profile.danceability += feedback_weight * song.danceability
         user_profile.energy += feedback_weight * song.energy
