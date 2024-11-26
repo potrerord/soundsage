@@ -4,6 +4,11 @@ from RecommendationSystem.Recommender import Recommender
 
 
 class RandomSamplingStrategy(Recommender):
+    """A recommender system that randomly samples songs from a 
+    collection of songs.
+    """
+
+    # The default number of songs to recommend.
     DEFAULT_TOP_N: int = 5
 
     def __init__(
@@ -26,6 +31,7 @@ class RandomSamplingStrategy(Recommender):
 
         :return: List of N randomly selected Song objects.
         """
+        
         # Randomly select top N songs from the list of all songs
         random_songs: list[Song] = random.sample(self.all_songs, self.top_n)
 
