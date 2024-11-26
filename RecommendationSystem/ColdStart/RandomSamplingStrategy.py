@@ -1,8 +1,9 @@
 import random
 from Data import Song
+from RecommendationSystem.Recommender import Recommender
 
 
-class RandomSamplingStrategy:
+class RandomSamplingStrategy(Recommender):
     DEFAULT_TOP_N: int = 5
 
     def __init__(
