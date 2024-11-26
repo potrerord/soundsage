@@ -81,12 +81,13 @@ def main() -> None:
         i += 1
     print("]")
 
-    print("\nProviding mock feedback...")
-    like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[0], liked=True)
-    like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[1], liked=False)
+    # FIXME - disabling mock feedback until it works.
+    # print("\nProviding mock feedback...")
+    # like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[0], liked=True)
+    # like_dislike_feedback_strategy.execute(user_id=DEFAULT_USER_ID, song=recommended_songs[1], liked=False)
 
-    print("\nUpdated user profile after feedback:")
-    print(user_profile)
+    # print("\nUpdated user profile after feedback:")
+    # print(user_profile)
 
 
 if __name__ == "__main__":
