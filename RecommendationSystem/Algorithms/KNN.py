@@ -82,6 +82,8 @@ class KNNRecommender(Recommender):
         Returns:
             A list of Song objects.
         """
+        
+        print(f"\nGetting KNN recommendations for {self.user_profile}...")
 
         # Get the user profile vector.
         user_vector: NDArray[np.floating] = self._get_user_vector()
