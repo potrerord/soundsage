@@ -86,8 +86,9 @@ class UserProfile:
         self.loudness = ((self.loudness * self.song_count) + song.loudness) / (self.song_count + 1)
 
         # Update categorical and textual features
-        self.genres.update(song.genres)
-        self.artists.update([song.artist])
+        # self.genres.update(song.genres)
+        for artist in song.artists: 
+            self.artists.update([artist])
         self.popular_tracks.update([song.track_id])
 
         # Increment song count
@@ -227,3 +228,18 @@ class UserProfile:
 
         # TODO add more
         # speechiness: float
+
+    def write_to_csv_dict(self):
+        '''
+        Help turning into iterable for saving to CSV
+        'user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
+        '''
+        csv_dict = {}
+        names = ['user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
+        vals = [self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.genres, self.artists, self.popular_tracks, self.song_count]
+        for i in range(len(names)): 
+            name = names[i]
+            val = vals[i]
+            csv_dict[name] = val
+        return csv_dict
+        # return iter([self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.genres, self.artists, self.popular_tracks, self.song_count])
