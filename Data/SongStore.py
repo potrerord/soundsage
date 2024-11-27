@@ -62,8 +62,8 @@ class SongStore:
                         name=row['name'],
                         album=row['album'],
                         album_id=row['album_id'],
-                        artists=self._parse_list(row['artists']),
-                        artist_ids=self._parse_list(row['artist_ids']),
+                        artists=self._parse_list(row['artists'] if 'artists' in row else row['artist_name']),
+                        artist_ids=self._parse_list(row['artist_ids'] if 'artists_ids' in row else []),
                         track_number=int(row['track_number']),
                         disc_number=int(row['disc_number']),
                         explicit=row['explicit'].lower() == 'true',
@@ -81,7 +81,7 @@ class SongStore:
                         duration_ms=int(row['duration_ms']),
                         time_signature=float(row['time_signature']),
                         year=int(row['year']),
-                        release_date=row['release_date']
+                        release_date=row['release_date'] if 'release_date' in row else None
                     )
                     songs.append(song)
                 # If the song has invalid data, skip it.
