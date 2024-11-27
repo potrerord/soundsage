@@ -13,7 +13,8 @@ from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
-DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
+DEFAULT_USER_FILENAME: str = "users.csv"
+DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
 
 DEFAULT_USER_ID: str = "1"
 
@@ -32,8 +33,8 @@ def main() -> None:
     # Read user profile.
     # TODO get user data from list of song IDs
     print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(file_name=DEFAULT_USER_FILENAME)
-    user_profile: UserProfile = user_profile_store.get_user_profile(user_id=DEFAULT_USER_ID)
+    user_profile_store: UserProfileStore = UserProfileStore(user_profiles_csv=DEFAULT_USER_FILENAME)
+    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(user_id=DEFAULT_USER_ID, songs_csv=DEFAULT_USER_TRACKS_CSV)
     
     # Validate user profile features.
     user_profile.validate_features()
@@ -72,12 +73,16 @@ def main() -> None:
     i: int = 0
     for song in recommended_songs:
         print(f"    ({i}) {song}")
-        print(f"           Danceability: {song.danceability:10.4f}")
-        print(f"           Energy:       {song.energy:10.4f}")
-        print(f"           Valence:      {song.valence:10.4f}")
-        print(f"           Acousticness: {song.acousticness:10.4f}")
-        print(f"           Tempo:        {song.tempo:10.4f}")
-        print(f"           Loudness:     {song.loudness:10.4f}")
+        print(f"           Acousticness:     {song.acousticness:10.4f}")
+        print(f"           Danceability:     {song.danceability:10.4f}")
+        print(f"           Energy:           {song.energy:10.4f}")
+        print(f"           Instrumentalness: {song.instrumentalness:10.4f}")
+        print(f"           Liveness:         {song.liveness:10.4f}")
+        print(f"           Loudness:         {song.loudness:10.4f}")
+        print(f"           Popularity:       {song.popularity:10.4f}" if song.popularity is not None else f"           Popularity:             None")
+        print(f"           Speechiness:      {song.speechiness:10.4f}")
+        print(f"           Tempo:            {song.tempo:10.4f}")
+        print(f"           Valence:          {song.valence:10.4f}")
         i += 1
     print("]")
 

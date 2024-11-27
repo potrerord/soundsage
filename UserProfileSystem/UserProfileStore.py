@@ -10,42 +10,71 @@ import Data.constants as c
 
 class UserProfileStore:
     DATA_DIRNAME: str = "Data"
-    file_path: str
+
+    user_profiles_csv: str
 
     def __init__(
             self: "UserProfileStore",
-            file_name: str,
+            user_profiles_csv: str,
     ) -> None:
-        self.file_path = os.path.join(self.DATA_DIRNAME, file_name)
+        self.user_profiles_csv = os.path.join(self.DATA_DIRNAME, user_profiles_csv)
 
-    def _read_csv(self: "UserProfileStore") -> list[dict[str, str]]:
-        """Reads the CSV file and returns a list of dictionaries."""
+    def _read_csv(
+            self: "UserProfileStore",
+    ) -> list[dict[str, str]]:
+        """Read the CSV file of user profiles and return data as a list
+        of dictionaries.
+        
+        Returns:
+            A list of dictionaries representing user profiles read from
+            the given file.
+            
+        Raises:
+            FileNotFoundError: If the CSV file does not exist.
+        """
+
         try:
             file: TextIO
-            with open(self.file_path, mode='r', newline='', encoding='utf-8') as file:
+            with open(self.user_profiles_csv, mode='r', newline='', encoding='utf-8') as file:
                 reader: csv.DictReader = csv.DictReader(file)
-
                 row: dict[str, str]
                 return [row for row in reader]
-
-        except FileNotFoundError:
-            return []  # If file doesn't exist, return an empty list
+        except FileNotFoundError as e:
+            print(f"Error reading user profiles from '{self.user_profiles_csv}'. Exiting...")
+            raise e
 
     def _write_csv(
             self: "UserProfileStore",
             rows: list[dict[str, str]],
     ) -> None:
-        """Writes the given list of rows back to the CSV file."""
+        """Write the given list of rows back to the CSV file.
+        
+        Parameters:
+            rows (list[dict[str, str]]): A list of dictionaries 
+                representing user profiles read from the given file.
+        """
         file: TextIO
-        with open(self.file_path, mode='w', newline='', encoding='utf-8') as file:
-            fieldnames = rows[0].keys() if rows else []  # Get headers from first row
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
+        with open(self.user_profiles_csv, mode='w', newline='', encoding='utf-8') as file:
+            fieldnames: list[dict[str, str]] = rows[0].keys() if rows else []  # Get headers from first row
+            writer: csv.DictWriter = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
 
-    def get_user_profile(self: "UserProfileStore", user_id: str) -> UserProfile:
-        """Fetches a user profile by user_id."""
-        rows = self._read_csv()
+    def get_user_profile(
+            self: "UserProfileStore",
+            user_id: str,
+    ) -> UserProfile | None:
+        """Fetch a user profile by user_id.
+        
+        Parameters:
+            user_id (str): The user_id of the user profile to fetch.
+        
+        Returns:
+            The fetched user profile by user_id.
+        """
+        rows: list[dict[str, str]] = self._read_csv()
+        
+        row: dict[str, str]
         for row in rows:
             if row['user_id'] == user_id:
                 # Create UserProfile instance from CSV data
@@ -66,7 +95,11 @@ class UserProfileStore:
                 return user_profile
         return None  # User profile not found
 
-    def update_user_profile(self: "UserProfileStore", user_id: str, user_profile: UserProfile):
+    def update_user_profile(
+            self: "UserProfileStore",
+            user_id: str,
+            user_profile: UserProfile,
+    ) -> None:
         """Updates a user profile."""
         rows = self._read_csv()
         updated = False
@@ -108,7 +141,10 @@ class UserProfileStore:
 
         self._write_csv(rows)
 
-    def remove_user_profile(self: "UserProfileStore", user_id: str):
+    def remove_user_profile(
+            self: "UserProfileStore",
+            user_id: str,
+    ) -> None:
         """Removes a user profile from the CSV file."""
         rows = self._read_csv()
         rows = [row for row in rows if row['user_id'] != user_id]

@@ -26,7 +26,7 @@ MODE_MAJOR: int = 1
 SPEECHINESS_MIN: float = 0.0
 SPEECHINESS_MAX: float = 1.0
 
-TEMPO_MIN_USEFUL: float = 40.0 # Likely limit
+TEMPO_MIN_USEFUL: float = 30.0 # Likely limit
 TEMPO_MAX_USEFUL: float = 300.0 # Likely limit
 
 TIME_SIG_MIN: int = 3

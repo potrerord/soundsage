@@ -58,7 +58,7 @@ class SongStore:
                 # Attempt to save a song.
                 try:
                     song: Song = Song(
-                        track_id=row['id'],
+                        id=row['id'],
                         name=row['name'],
                         album=row['album'],
                         album_id=row['album_id'],
@@ -81,7 +81,8 @@ class SongStore:
                         duration_ms=int(row['duration_ms']),
                         time_signature=float(row['time_signature']),
                         year=int(row['year']),
-                        release_date=row['release_date']
+                        release_date=row['release_date'],
+                        popularity=None,
                     )
                     songs.append(song)
                 # If the song has invalid data, skip it.
