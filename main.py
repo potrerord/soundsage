@@ -14,7 +14,7 @@ from UserProfileSystem.UserProfileStore import UserProfileStore
 
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
 # DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
-DEFAULT_USER_FILENAME = "users.csv"
+DEFAULT_USER_FILENAME = "mock_users.csv"
 DEFAULT_USER_ID: str = "1"
 
 
@@ -33,6 +33,9 @@ def main() -> None:
     # TODO get user data from list of song IDs
     print("\nReading user profile...")
     user_profile_store: UserProfileStore = UserProfileStore(file_name=DEFAULT_USER_FILENAME)
+    print("\nGetting user profile")
+    print(user_profile_store)
+
     user_profile: UserProfile = user_profile_store.get_user_profile(user_id=DEFAULT_USER_ID)
     
     # Validate user profile features.
