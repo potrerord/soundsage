@@ -46,6 +46,8 @@ class UserProfileStore:
     def get_user_profile(self: "UserProfileStore", user_id: str) -> UserProfile:
         """Fetches a user profile by user_id."""
         rows = self._read_csv()
+        print("Rows printing for usesr profile")
+        print(rows)
         for row in rows:
             if row['user_id'] == user_id:
                 # Create UserProfile instance from CSV data

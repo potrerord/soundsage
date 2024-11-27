@@ -25,18 +25,15 @@ class UserProfile:
 
     song_count: int
 
-    def __init__(
-            self: "UserProfile",
-            user_id: str,
-    ) -> None:
+    def __init__(self: "UserProfile",user_id: str,danceability=0.0, energy=0.0, valence=0.0, acousticness=0.0, tempo=0.0, loudness=0.0, song_count=0) -> None:
         # Aggregate numerical features
         self.user_id = user_id
-        self.danceability = 0.0
-        self.energy = 0.0
-        self.valence = 0.0
-        self.acousticness = 0.0
-        self.tempo = 0.0
-        self.loudness = 0.0
+        self.danceability = danceability
+        self.energy = energy
+        self.valence = valence
+        self.acousticness = acousticness
+        self.tempo = tempo
+        self.loudness = loudness
 
         # Aggregate categorical and textual features
         self.genres = Counter()
@@ -44,7 +41,7 @@ class UserProfile:
         self.popular_tracks = Counter()
 
         # Count total songs processed for averaging
-        self.song_count = 0
+        self.song_count = song_count
         
     def __repr__(self: "UserProfile") -> str:
         return (f"UserProfile(danceability={self.danceability:.2f}, energy={self.energy:.2f}, "
