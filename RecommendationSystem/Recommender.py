@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 
 from Data import Song
 
-class Recommender(ABC):
+
+class Recommender:
     @abstractmethod
-    def recommend(self) -> [Song]:
-        pass
+    def recommend(self) -> list[Song]:
+        ...
