@@ -13,7 +13,7 @@ from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
-DEFAULT_USER_FILENAME: str = "users.csv"
+DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
 
 DEFAULT_USER_ID: str = "1"
 
