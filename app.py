@@ -1,6 +1,6 @@
 # import main Flask class and request object
 from flask import Flask, request, jsonify
-from requests import get_recommendations
+from requests import get_recommendations, feedback_system
 
 # create the Flask app
 app = Flask(__name__)
@@ -11,9 +11,12 @@ def get_recommendation():
     return jsonify(data)
 
 # Add query string for getting feedback
-@app.route('/soundsage/feedback')
+@app.route('/feedback', methods=["POST"], strict_slashes=False)
 def get_feedback():
-    return 'Form Data Example'
+    song_info = request.json['song']
+    feedback = request.json['rating']
+    feedback_system(song_info, feedback)
+    return 'Done', 201
 
 if __name__ == '__main__':
     # run app in debug mode on port 8080

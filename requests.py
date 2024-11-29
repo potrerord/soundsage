@@ -55,3 +55,10 @@ def get_recommendations():
         ]
     }
     return response
+
+def feedback_system(song_info: dict, feedback: int): 
+    print("Got the feedback")
+    print(feedback)
+    print(song_info)
+
+    # TODO: Use this feedback for this speicific user using FeedbackSystem. Unclear of the mechanisms as of now. 

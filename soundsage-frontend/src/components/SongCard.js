@@ -2,11 +2,35 @@ import React, { useState } from "react";
 
 function SongCard({ song }) {
   const [rating, setRating] = useState(0);
+  const sendData = async(value, song) => {
+    try {
+      const data = {
+        "rating": value, 
+        "song": song
+      };
+      const response = await fetch("/feedback", {
+        'method': 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(data)
+      });
+      if (response.ok) {
+        console.log("it worked");
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }  
+  }
 
   const handleRating = (value) => {
     setRating(value);
     console.log(`Rated "${song.name}" by ${song.artists.join(", ")}: ${value} stars`);
+    sendData(value, song);
   };
+
+
 
   return (
     <div className="card h-100 shadow-sm">
