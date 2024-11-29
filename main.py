@@ -11,6 +11,8 @@ from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSampling
 from UserProfileSystem.FeedbackSystem.LikeDislikeFeedbackStrategy import LikeDislikeFeedbackStrategy
 from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
+from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
+
 
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
 # DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
