@@ -2,11 +2,13 @@ import React, { useState } from "react";
 
 function SongCard({ song }) {
   const [rating, setRating] = useState(0);
+  // Sends data to the Flask backend. 
   const sendData = async(value, song) => {
     try {
       const data = {
         "rating": value, 
-        "song": song
+        "song": song,
+        "user_id": song.user_id
       };
       const response = await fetch("/feedback", {
         'method': 'POST',

@@ -12,8 +12,7 @@ import pickle
 
 config_filename = "static_song_store.pkl"
 
-def get_recommendations():
-    user_id = '1'
+def get_recommendations(user_id):
     # Load existing song and user data
     with open(config_filename, 'rb') as config_file:
         all_songs = pickle.load(config_file)
@@ -42,23 +41,25 @@ def get_recommendations():
     
     # Convert recommendations into a JSON-compatible format
     response = {
-        "user_id": user_id,
         "recommendations": [
             {
                 "name": song.name,
                 "artists": song.artists,
                 "danceability": song.danceability,
                 "energy": song.energy,
-                "valence": song.valence
+                "valence": song.valence,
+                "user_id": user_id,
             }
             for song in recommended_songs
         ]
     }
     return response
 
-def feedback_system(song_info: dict, feedback: int): 
+def feedback_system(song_info: dict, feedback: int, user_id: str): 
     print("Got the feedback")
+    print(user_id)
     print(feedback)
     print(song_info)
+    
 
     # TODO: Use this feedback for this speicific user using FeedbackSystem. Unclear of the mechanisms as of now. 
