@@ -60,12 +60,16 @@ class UserProfileStore:
 
     def _update_aggregated_data(self, user_profile: UserProfile) -> None:
         """Aggregate user profile data."""
+        user_profile.acousticness = self._aggregate_value(user_profile.acousticness)
         user_profile.danceability = self._aggregate_value(user_profile.danceability)
         user_profile.energy = self._aggregate_value(user_profile.energy)
-        user_profile.valence = self._aggregate_value(user_profile.valence)
-        user_profile.acousticness = self._aggregate_value(user_profile.acousticness)
-        user_profile.tempo = self._aggregate_value(user_profile.tempo)
+        user_profile.instrumentalness = self._aggregate_value(user_profile.instrumentalness)
+        user_profile.liveness = self._aggregate_value(user_profile.liveness)
         user_profile.loudness = self._aggregate_value(user_profile.loudness)
+        user_profile.popularity = self._aggregate_value(user_profile.popularity)
+        user_profile.speechiness = self._aggregate_value(user_profile.speechiness)
+        user_profile.tempo = self._aggregate_value(user_profile.tempo)
+        user_profile.valence = self._aggregate_value(user_profile.valence)
 
     def _aggregate_value(self, value: float) -> float:
         """Perform aggregation on a given value."""
@@ -83,15 +87,19 @@ class UserProfileStore:
                     user_data = user_profile
                     # Convert the dictionary into a UserProfile object
                     user_profile = UserProfile(user_id)
+                    user_profile.acousticness = user_data['acousticness']
                     user_profile.danceability = user_data['danceability']
                     user_profile.energy = user_data['energy']
-                    user_profile.valence = user_data['valence']
-                    user_profile.acousticness = user_data['acousticness']
-                    user_profile.tempo = user_data['tempo']
+                    user_profile.instrumentalness = user_data['instrumentalness']
+                    user_profile.liveness = user_data['liveness']
                     user_profile.loudness = user_data['loudness']
-                    user_profile.genres = Counter(user_data['genres'])
+                    user_profile.popularity = user_data['popularity']
+                    user_profile.speechiness = user_data['speechiness']
+                    user_profile.tempo = user_data['tempo']
+                    user_profile.valence = user_data['valence']
+                    # user_profile.genres = Counter(user_data['genres'])
                     user_profile.artists = Counter(user_data['artists'])
-                    user_profile.popular_tracks = Counter(user_data['popular_tracks'])
+                    # user_profile.popular_tracks = Counter(user_data['popular_tracks'])
                     user_profile.song_count = user_data['song_count']
                     return user_profile
                 else:

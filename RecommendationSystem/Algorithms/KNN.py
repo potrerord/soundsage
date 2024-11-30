@@ -82,7 +82,7 @@ class KNNRecommender(Recommender):
         Returns:
             A list of Song objects.
         """
-        
+
         print(f"\nGetting KNN recommendations for {self.user_profile}...")
 
         # Get the user profile vector.
@@ -146,9 +146,17 @@ class KNNRecommender(Recommender):
         """
 
         feature_name: str
-        return np.array(
-            [getattr(song, feature_name, self.EMPTY_FEATURE_VALUE) for feature_name in self.FEATURE_COLUMNS],
-            dtype=float)
+        return np.array([
+            song.acousticness,
+            song.danceability,
+            song.energy,
+            song.instrumentalness,
+            song.liveness,
+            song.loudness,
+            song.speechiness,
+            song.tempo,
+            song.valence,
+        ])
 
     @staticmethod
     def _euclidean_distance(

@@ -1,14 +1,24 @@
 import json
 import os
+import Data.constants as c
+
 
 class NewFeedbackStrategy:
-    def __init__(self, profile_file="user_profiles.json", weight_factors=None):
+    ADJUSTMENT_FACTOR: float = 0.01
+    profile_file: str
+    weight_factors: dict[str, int]
+
+    def __init__(
+            self: "NewFeedbackStrategy",
+            profile_file: str = "user_profiles.json",
+            weight_factors: dict[str, int] = None,
+    ) -> None:
         # Initialize profile file and weight factors
         self.profile_file = profile_file
         self.weight_factors = weight_factors if weight_factors else {
-            'danceability': 1, 
-            'energy': 1, 
-            'valence': 1, 
+            'danceability': 1,
+            'energy': 1,
+            'valence': 1,
             'acousticness': 1,
             'instrumentalness': 1,
             'liveness': 1,
@@ -35,7 +45,7 @@ class NewFeedbackStrategy:
         """Save or update a specific user's profile in the JSON file."""
         # Load existing profiles
         profiles = self.load_profiles_from_json()
-        
+
         # Check if the user's profile already exists
         user_profile_data = user_profile.__dict__
         for idx, profile in enumerate(profiles):
@@ -46,7 +56,7 @@ class NewFeedbackStrategy:
         else:
             # Add a new profile
             profiles.append(user_profile_data)
-        
+
         # Save the updated profiles list back to the file
         self.save_profiles_to_json(profiles)
 
@@ -59,30 +69,45 @@ class NewFeedbackStrategy:
 
         # Define feature ranges (add all relevant features here)
         feature_ranges = {
-            "danceability": (0, 1),
-            "energy": (0, 1),
-            "tempo": (0, 300),  # Example: tempo could range from 0 to 300 BPM
-            "loudness": (-60, 0),  # Loudness in decibels
-            # Add other features with their respective ranges
+            "acousticness": (c.ACOUSTICNESS_MIN, c.ACOUSTICNESS_MAX),
+            "danceability": (c.DANCEABILITY_MIN, c.DANCEABILITY_MAX),
+            "energy": (c.ENERGY_MIN, c.ENERGY_MAX),
+            "instrumentalness": (c.INSTRUMENTALNESS_MIN, c.INSTRUMENTALNESS_MAX),
+            "liveness": (c.LIVENESS_MIN, c.LIVENESS_MAX),
+            "loudness": (c.LOUDNESS_MIN_USEFUL, c.LOUDNESS_MAX),
+            "speechiness": (c.SPEECHINESS_MIN, c.SPEECHINESS_MAX),
+            "tempo": (c.TEMPO_MIN_USEFUL, c.TEMPO_MAX_USEFUL),
+            "valence": (c.VALENCE_MIN, c.VALENCE_MAX),
         }
 
         # Track features and their ratings
-        feature_updates = {feature: getattr(song, feature, None) for feature in self.weight_factors.keys()}
+        # feature_updates = {feature: getattr(song, feature) for feature in self.weight_factors.keys()}
+        feature_updates = {
+            "acousticness": song.acousticness,
+            "danceability": song.danceability,
+            "energy": song.energy,
+            "instrumentalness": song.instrumentalness,
+            "liveness": song.liveness,
+            "loudness": song.loudness,
+            "speechiness": song.speechiness,
+            "tempo": song.tempo,
+            "valence": song.valence,
+        }
 
         # Apply feedback (positive or negative) to the features
         for feature, feature_value in feature_updates.items():
-            if feature_value is None or feature not in feature_ranges:
-                continue  # Skip features with missing values or undefined ranges
+            # if feature_value is None or feature not in feature_ranges:
+            #     continue  # Skip features with missing values or undefined ranges
 
             # Get the range for this feature
             min_value, max_value = feature_ranges[feature]
 
             # Adjust the user's profile feature based on feedback score (1-5 scale)
             # Increase or decrease based on feedback: feedback_score ranges from 1 (negative) to 5 (positive)
-            adjustment_factor = (feedback_score - 3) * 0.1  # Feedback score adjustment scaled
+            adjustment_factor: float = (feedback_score - 3) * self.ADJUSTMENT_FACTOR  # Feedback score adjustment scaled
 
             # Get the current feature value from the user profile
-            current_value = getattr(user_profile, feature, 0)
+            current_value = getattr(user_profile, feature)
 
             # Adjust the feature based on feedback score, respecting the feature's natural range
             new_feature_value = current_value + adjustment_factor * feature_value

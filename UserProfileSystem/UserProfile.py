@@ -3,6 +3,9 @@ from collections import Counter
 import json
 from statistics import mean
 from typing import List, Optional
+
+from numpy._typing import NDArray
+
 from Data.Song import Song
 import numpy as np
 import os
@@ -99,7 +102,7 @@ class UserProfile:
             f"}}"
         )
     @staticmethod
-    def create_profile_from_json(user_id: str, user_profiles_json: str) -> Optional["UserProfile"]:
+    def create_profile_from_json(user_id: str, user_profiles_json: str) -> "UserProfile":
         """
         Create a user profile from the existing JSON file if available.
 
@@ -128,20 +131,15 @@ class UserProfile:
                         user_profile.song_count = user_data.get('song_count', 0)
                         return user_profile
 
-        return None
+        raise FileNotFoundError(f"Cannot find JSON file '{os.path.realpath(user_profiles_json)}'")
     
     @staticmethod
     def create_profile_from_songs_csv(
             user_id: str,
             songs_csv: str,
-            user_profiles_json: str
     ) -> "UserProfile":
-        user_profile = UserProfile.create_profile_from_json(user_id, user_profiles_json)
-        if user_profile:
-            print(f"Profile for user {user_id} loaded from JSON.")
-            return user_profile
         
-        print(f"\nCreating user profile from {songs_csv}...")
+        print(f"\nCreating user profile from '{os.path.realpath(songs_csv)}'...")
         
         new_user_profile = UserProfile(user_id)
 
@@ -284,49 +282,49 @@ class UserProfile:
         - One-hot encoded vector for top N genres and artists
         """
         # Numerical features
-        numerical_features: np.ndarray[
-            np.shape,
-            np.dtype[np.floating]
-        ] = np.array([
+        numerical_features: NDArray[np.floating] = np.array([
+            self.acousticness,
             self.danceability,
             self.energy,
-            self.valence,
-            self.acousticness,
-            self.tempo,
+            self.instrumentalness,
+            self.liveness,
             self.loudness,
+            self.speechiness,
+            self.tempo,
+            self.valence,
         ])
-
-        # Get the top N genres and artists
-        # top_genres: list[tuple[str, int]] = self.get_top_genres(top_n)
-        top_artists: list[tuple[str, int]] = self.get_top_artists(top_n)
-
-        # One-hot encoding (or simple frequency count) for top N genres and artists
-        # genre_vector: np.ndarray[
+        # 
+        # # Get the top N genres and artists
+        # # top_genres: list[tuple[str, int]] = self.get_top_genres(top_n)
+        # top_artists: list[tuple[str, int]] = self.get_top_artists(top_n)
+        # 
+        # # One-hot encoding (or simple frequency count) for top N genres and artists
+        # # genre_vector: np.ndarray[
+        # #     np.shape,
+        # #     np.dtype[np.floating]
+        # # ] = np.zeros(top_n)  # One-hot vector for top N genres
+        # 
+        # artist_vector: np.ndarray[
         #     np.shape,
         #     np.dtype[np.floating]
-        # ] = np.zeros(top_n)  # One-hot vector for top N genres
+        # ] = np.zeros(top_n)  # One-hot vector for top N artists
+        # 
+        # # i: int
+        # # genre: str
+        # # for i, (genre, _) in enumerate(top_genres):
+        # #     genre_vector[i] = 1  # Mark the genre as present
+        # 
+        # artist: str
+        # for i, (artist, _) in enumerate(top_artists):
+        #     artist_vector[i] = 1  # Mark the artist as present
+        # 
+        # # Combine all features into a single vector
+        # user_vector: np.ndarray[
+        #     np.shape,
+        #     np.dtype[np.floating]
+        # ] = np.concatenate([numerical_features, artist_vector])
 
-        artist_vector: np.ndarray[
-            np.shape,
-            np.dtype[np.floating]
-        ] = np.zeros(top_n)  # One-hot vector for top N artists
-
-        # i: int
-        # genre: str
-        # for i, (genre, _) in enumerate(top_genres):
-        #     genre_vector[i] = 1  # Mark the genre as present
-
-        artist: str
-        for i, (artist, _) in enumerate(top_artists):
-            artist_vector[i] = 1  # Mark the artist as present
-
-        # Combine all features into a single vector
-        user_vector: np.ndarray[
-            np.shape,
-            np.dtype[np.floating]
-        ] = np.concatenate([numerical_features, artist_vector])
-
-        return user_vector
+        return numerical_features
 
     def is_cold_start(self: "UserProfile") -> bool:
         """
@@ -379,8 +377,8 @@ class UserProfile:
         'user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
         '''
         csv_dict = {}
-        names = ['user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
-        vals = [self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.genres, self.artists, self.popular_tracks, self.song_count]
+        names = ['user_id','danceability','energy','valence','acousticness','tempo','loudness','artists','song_count']
+        vals = [self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.artists, self.song_count]
         for i in range(len(names)): 
             name = names[i]
             val = vals[i]

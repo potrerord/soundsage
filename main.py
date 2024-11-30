@@ -13,10 +13,9 @@ from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
 
-
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
 DEFAULT_USER_FILENAME: str = "users.csv"
-DEFAULT_USER_TRACKS_CSV: str = "adn-spotify-playlist_features-runaway.csv"
+DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
 DEFAULT_USER_JSON = 'user_profiles.json'
 # DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
 # DEFAULT_USER_FILENAME = "mock_users.csv"
@@ -26,8 +25,8 @@ DEFAULT_USER_ID: str = "1"
 def main() -> None:
     print("Current Working Directory:", os.getcwd())
 
-    print(f"\nWelcome to SoundSage!")        
-    
+    print(f"\nWelcome to SoundSage!")
+
     # Load the dataset into memory.
     print(f"\nLoading song data into memory from '{DEFAULT_DATA_FILENAME}'...")
 
@@ -39,14 +38,14 @@ def main() -> None:
 
     # Read user profile.
     print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV, DEFAULT_USER_JSON)
     print("\nGetting user profile")
     print(user_profile_store)
 
     user_profile: UserProfile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
-    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
-    
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV, DEFAULT_USER_JSON)
+    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID, DEFAULT_USER_TRACKS_CSV)
+
     # Validate user profile features.
     user_profile.validate_features()
     print(f"\nUser profile:\n{user_profile}")
@@ -90,7 +89,8 @@ def main() -> None:
         print(f"           Instrumentalness: {song.instrumentalness:10.4f}")
         print(f"           Liveness:         {song.liveness:10.4f}")
         print(f"           Loudness:         {song.loudness:10.4f}")
-        print(f"           Popularity:       {song.popularity:10.4f}" if song.popularity is not None else f"           Popularity:             None")
+        print(
+            f"           Popularity:       {song.popularity:10.4f}" if song.popularity is not None else f"           Popularity:             None")
         print(f"           Speechiness:      {song.speechiness:10.4f}")
         print(f"           Tempo:            {song.tempo:10.4f}")
         print(f"           Valence:          {song.valence:10.4f}")
@@ -102,14 +102,15 @@ def main() -> None:
     for song in recommended_songs:
         # Prompt the user for feedback on the recommended song
         feedback_score = int(input(f"Rate the song '{song.name}' (1-5): "))
-        
+
         # Update user profile based on feedback using NewFeedbackStrategy
-        feedback_strategy.update_user_profile_based_on_feedback(user_profile, DEFAULT_USER_ID,song, feedback_score)
+        feedback_strategy.update_user_profile_based_on_feedback(user_profile, DEFAULT_USER_ID, song, feedback_score)
 
     # Print the updated user profile after feedback
     print("\nUpdated user profile after feedback:")
     user_profile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
     print(user_profile)
+
 
 if __name__ == "__main__":
     main()
