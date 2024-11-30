@@ -36,24 +36,21 @@ def main() -> None:
     print("\nGetting all songs...")
     all_songs: list[Song] = song_store.get_all_songs()
 
-    # Read user profile.
-    print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(USER_PLAYLIST_CSV, USERS_DATABASE_JSON)
-    print("\nGetting user profile")
-    print(user_profile_store)
-
+    # Load user profile database from file.
+    # TODO: are we using csv or json user database?
+    print(f"\nLoading user profile database from '{os.path.realpath(USERS_DATABASE_CSV)}' or '{os.path.realpath(USERS_DATABASE_JSON)}'...")
+    user_profile_store: UserProfileStore = UserProfileStore(USERS_DATABASE_CSV, USERS_DATABASE_JSON)
+    
+    # Get user profile.
+    print(f"\nLoading user profile ID#{DEFAULT_USER_ID}...")
     user_profile: UserProfile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
-    user_profile_store: UserProfileStore = UserProfileStore(USER_PLAYLIST_CSV, USERS_DATABASE_JSON)
-    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID, USER_PLAYLIST_CSV)
-
-    # Validate user profile features.
-    user_profile.validate_features()
-    print(f"\nUser profile:\n{user_profile}")
-
     if user_profile is None:
-        print(f"\nCreating new user...")
-        user_profile_store.update_user_profile(user_id=DEFAULT_USER_ID,
-                                               user_profile=UserProfile(user_id=DEFAULT_USER_ID))
+        print(f"\nUser profile ID#{DEFAULT_USER_ID} not found. Creating user profile ID#{DEFAULT_USER_ID} from songs CSV '{os.path.realpath(USER_PLAYLIST_CSV)}'...")
+        user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID, USER_PLAYLIST_CSV)
+        
+    # Validate user profile.
+    user_profile.validate_features()
+    print(f"\nUser profile ID#{user_profile.user_id}:\n{user_profile}")
 
     # cold start strategy
     random_sampling_strategy: RandomSamplingStrategy = RandomSamplingStrategy(all_songs=all_songs)
@@ -99,12 +96,9 @@ def main() -> None:
 
     # Collect feedback from the user for each recommended song
     print("\nProviding feedback...")
-    for song in recommended_songs:
-        # Prompt the user for feedback on the recommended song
-        feedback_score = int(input(f"Rate the song '{song.name}' (1-5): "))
-
-        # Update user profile based on feedback using NewFeedbackStrategy
-        feedback_strategy.update_user_profile_based_on_feedback(user_profile, DEFAULT_USER_ID, song, feedback_score)
+    # Now, we apply feedback after recommendations (when feedback is received from the user)
+    feedback: dict[Song, int] = recommender_aggregator.get_feedback(recommended_songs)
+    recommender_aggregator.apply_feedback_to_profile(feedback)
 
     # Print the updated user profile after feedback
     print("\nUpdated user profile after feedback:")

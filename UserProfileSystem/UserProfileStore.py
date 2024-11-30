@@ -79,6 +79,7 @@ class UserProfileStore:
     def get_user_profile(self: "UserProfileStore", user_id: str) -> UserProfile | None:
         """Fetch a user profile by user_id."""
         if os.path.exists(self.user_profiles_json):  # Check if the JSON file exists
+            print(f"\nFetching user profile ID#{user_id} from {os.path.realpath(self.user_profiles_json)}...")
             user_profiles = self._read_json()
 
             # If the aggregated data exists in the JSON, return the UserProfile with pre-aggregated values
@@ -109,7 +110,7 @@ class UserProfileStore:
         
         # Fallback to reading from CSV and performing aggregation if JSON doesn't have the profile
         rows = self._read_csv()
-        print("\nPrinting out rows in user profile csv read")
+        print(f"\nFetching user profile ID#{user_id} from {os.path.realpath(self.csv_file)}...")
         print(rows)
         for row in rows:
             if row['id'] == user_id:

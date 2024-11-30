@@ -77,25 +77,22 @@ class Aggregator:
         song: Song
         recommended_songs: list[Song] = [song for (song, _) in all_song_scores.most_common(self.top_n)]
 
-        # Now, we apply feedback after recommendations (when feedback is received from the user)
-        self.apply_feedback_to_profile(recommended_songs)
-
         return recommended_songs
 
-    def apply_feedback_to_profile(self, recommended_songs: list[Song]):
+    def get_feedback(self, recommended_songs: list[Song]) -> dict[Song, int]:
+        feedback: dict[Song, int] = {}
+        for song in recommended_songs:
+            # Simulate user feedback for each recommended song (e.g., based on user input)
+            feedback[song] = int(input(f"Rate the song '{song.name} - {song.artists}' (1-5): "))
+        return feedback
+
+    def apply_feedback_to_profile(self, feedback: dict[Song, int]) -> None:
         """
         After recommendations are shown, apply feedback to the user profile.
         
         This method assumes that feedback is collected (like or dislike) from the user.
-        :param recommended_songs: The list of recommended songs to apply feedback on.
+        :param feedback: The dict of recommended songs and feedback scores.
         """
-        for song in recommended_songs:
-            # Simulate user feedback for each recommended song (e.g., based on user input)
-            feedback_score = int(input(f"Rate the song '{song.name}' (1-5): "))
-            
-            # Calculate the track score using feedback strategy
-            # track_score = self.feedback_strategy.calculate_track_score(song)
-
+        for song, score in feedback.items():
             # Update the user profile based on the feedback score
-            self.feedback_strategy.update_user_profile_based_on_feedback(self.user_profile, self.user_id, song, feedback_score)
-
+            self.feedback_strategy.update_user_profile_based_on_feedback(self.user_profile, self.user_id, song, score)
