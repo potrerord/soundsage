@@ -1,7 +1,6 @@
 from Data import Song
 from RecommendationSystem import Recommender
 from collections import Counter
-import numpy as np
 
 from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSamplingStrategy
 from UserProfileSystem.UserProfile import UserProfile
@@ -14,6 +13,7 @@ class Aggregator:
 
     user_id: str
     user_profile_store: UserProfileStore
+    user_profile: UserProfile
     recommenders: list[Recommender]
     cold_start_strategy: RandomSamplingStrategy
     feedback_strategy: NewFeedbackStrategy  # Updated to use NewFeedbackStrategy
@@ -43,6 +43,7 @@ class Aggregator:
 
         self.user_id = user_id
         self.user_profile_store = user_profile_store
+        self.user_profile = user_profile_store.get_user_profile(self.user_id)
         self.recommenders = recommenders
         self.cold_start_strategy = cold_start_strategy
         self.feedback_strategy = feedback_strategy  # Initialize feedback strategy
@@ -53,14 +54,11 @@ class Aggregator:
         """
         Aggregates recommendations from multiple recommenders based on their weights and returns the top N songs.
         
-        :param top_n: Number of songs to return as recommendations.
         :return: List of top N recommended songs.
         """
         all_song_scores: Counter[Song] = Counter()
 
-        user_profile: UserProfile = self.user_profile_store.get_user_profile(self.user_id)
-
-        if user_profile is None or user_profile.is_cold_start():
+        if self.user_profile is None or self.user_profile.is_cold_start():
             print("\nApplying cold start strategy...")
             return self.cold_start_strategy.recommend()
 
@@ -93,11 +91,11 @@ class Aggregator:
         """
         for song in recommended_songs:
             # Simulate user feedback for each recommended song (e.g., based on user input)
-            feedback_score = int(input(f"Rate the song '{song.id}' (1-5): "))
+            feedback_score = int(input(f"Rate the song '{song.name}' (1-5): "))
             
             # Calculate the track score using feedback strategy
-            track_score = self.feedback_strategy.calculate_track_score(song)
+            # track_score = self.feedback_strategy.calculate_track_score(song)
 
             # Update the user profile based on the feedback score
-            self.feedback_strategy.update_user_profile_based_on_feedback(self.user_id, song, feedback_score)
+            self.feedback_strategy.update_user_profile_based_on_feedback(self.user_profile, self.user_id, song, feedback_score)
 

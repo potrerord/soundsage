@@ -32,7 +32,7 @@ class UserProfileStore:
 
                 row: dict[str, str]
                 return [row for row in reader]
-            
+
         except FileNotFoundError:
             return []  # If file doesn't exist, return an empty list
 
@@ -48,9 +48,9 @@ class UserProfileStore:
             writer.writeheader()
             writer.writerows(rows)
 
-    def _read_json(self) -> dict[str, UserProfile]:
+    def _read_json(self) -> list[dict[str, UserProfile]]:
         if not os.path.exists(self.user_profiles_json):
-            return {}
+            return []
         with open(self.user_profiles_json, 'r', encoding='utf-8') as f:
             return json.load(f)
 
@@ -72,30 +72,33 @@ class UserProfileStore:
         # Example aggregation logic, replace with your actual aggregation method
         return value  # For now, just returns the value (could be a sum, average, etc.)
 
-
     def get_user_profile(self: "UserProfileStore", user_id: str) -> UserProfile | None:
         """Fetch a user profile by user_id."""
         if os.path.exists(self.user_profiles_json):  # Check if the JSON file exists
             user_profiles = self._read_json()
 
             # If the aggregated data exists in the JSON, return the UserProfile with pre-aggregated values
-            if user_id in user_profiles:
-                user_data = user_profiles[user_id]
-                # Convert the dictionary into a UserProfile object
-                user_profile = UserProfile(user_id)
-                user_profile.danceability = user_data['danceability']
-                user_profile.energy = user_data['energy']
-                user_profile.valence = user_data['valence']
-                user_profile.acousticness = user_data['acousticness']
-                user_profile.tempo = user_data['tempo']
-                user_profile.loudness = user_data['loudness']
-                user_profile.genres = Counter(user_data['genres'])
-                user_profile.artists = Counter(user_data['artists'])
-                user_profile.popular_tracks = Counter(user_data['popular_tracks'])
-                user_profile.song_count = user_data['song_count']
-                return user_profile
-            
-        print(f"\nJSON file not found: {self.user_profiles_json}")
+            for user_profile in user_profiles:
+                if user_profile["user_id"] == user_id:
+                    user_data = user_profile
+                    # Convert the dictionary into a UserProfile object
+                    user_profile = UserProfile(user_id)
+                    user_profile.danceability = user_data['danceability']
+                    user_profile.energy = user_data['energy']
+                    user_profile.valence = user_data['valence']
+                    user_profile.acousticness = user_data['acousticness']
+                    user_profile.tempo = user_data['tempo']
+                    user_profile.loudness = user_data['loudness']
+                    user_profile.genres = Counter(user_data['genres'])
+                    user_profile.artists = Counter(user_data['artists'])
+                    user_profile.popular_tracks = Counter(user_data['popular_tracks'])
+                    user_profile.song_count = user_data['song_count']
+                    return user_profile
+                else:
+                    print(f"user_id {user_id} not found in user_profiles: {user_profiles}")
+        else:
+            print(f"\nUserProfileStores.get_user_profile({user_id}): JSON file not found: {os.path.realpath(self.user_profiles_json)}")
+        
         # Fallback to reading from CSV and performing aggregation if JSON doesn't have the profile
         rows = self._read_csv()
         print("\nPrinting out rows in user profile csv read")
@@ -150,7 +153,8 @@ class UserProfileStore:
             user_profiles[user_id] = user_profile
             self._write_json(user_profiles)
         else:
-            print(f"\nJSON file not found: {self.user_profiles_json}")
+            print(
+                f"\nUserProfileStores.update_user_profile({user_id}): JSON file not found: {os.path.realpath(self.user_profiles_json)}")
             # If JSON file doesn't exist, fallback to CSV
             rows = self._read_csv()
             updated = False
@@ -191,7 +195,6 @@ class UserProfileStore:
         user_profiles = self._read_json()
         user_profiles[user_id] = user_profile
         self._write_json(user_profiles)
-
 
     def remove_user_profile(self: "UserProfileStore", user_id: str):
         """Removes a user profile from the CSV file."""

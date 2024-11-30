@@ -39,12 +39,12 @@ def main() -> None:
 
     # Read user profile.
     print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     print("\nGetting user profile")
     print(user_profile_store)
 
     user_profile: UserProfile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     
     # Validate user profile features.
