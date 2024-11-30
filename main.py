@@ -13,12 +13,12 @@ from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
 
-DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
-DEFAULT_USER_FILENAME: str = "users.csv"
-DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
-DEFAULT_USER_JSON = 'user_profiles.json'
-# DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
-# DEFAULT_USER_FILENAME = "mock_users.csv"
+SONG_DATABASE_CSV: str = "tracks_features.csv"
+USERS_DATABASE_CSV: str = "users.csv"
+# USERS_DATABASE_CSV = "mock_users.csv"
+USER_PLAYLIST_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
+USERS_DATABASE_JSON = 'user_profiles.json'
+
 DEFAULT_USER_ID: str = "1"
 
 
@@ -28,9 +28,9 @@ def main() -> None:
     print(f"\nWelcome to SoundSage!")
 
     # Load the dataset into memory.
-    print(f"\nLoading song data into memory from '{DEFAULT_DATA_FILENAME}'...")
+    print(f"\nLoading song data into memory from '{SONG_DATABASE_CSV}'...")
 
-    song_store: SongStore = SongStore(file_name=DEFAULT_DATA_FILENAME)
+    song_store: SongStore = SongStore(file_name=SONG_DATABASE_CSV)
 
     # Get list of all songs from data.
     print("\nGetting all songs...")
@@ -38,13 +38,13 @@ def main() -> None:
 
     # Read user profile.
     print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV, DEFAULT_USER_JSON)
+    user_profile_store: UserProfileStore = UserProfileStore(USER_PLAYLIST_CSV, USERS_DATABASE_JSON)
     print("\nGetting user profile")
     print(user_profile_store)
 
     user_profile: UserProfile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV, DEFAULT_USER_JSON)
-    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID, DEFAULT_USER_TRACKS_CSV)
+    user_profile_store: UserProfileStore = UserProfileStore(USER_PLAYLIST_CSV, USERS_DATABASE_JSON)
+    user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID, USER_PLAYLIST_CSV)
 
     # Validate user profile features.
     user_profile.validate_features()
