@@ -12,17 +12,14 @@ import Data.constants as c
 
 class UserProfileStore:
     DATA_DIRNAME: str = "Data"
-    # file_path: str
     csv_file: str
     user_profiles_json: str
 
     def __init__(
             self: "UserProfileStore",
-            file_name: str,
             csv_file: str,
             json_file: str,
     ) -> None:
-        self.file_path = os.path.join(self.DATA_DIRNAME, file_name)
         self.csv_file = csv_file
         self.user_profiles_json = json_file
 
@@ -45,7 +42,7 @@ class UserProfileStore:
     ) -> None:
         """Writes the given list of rows back to the CSV file."""
         file: TextIO
-        with open(self.file_path, mode='w', newline='', encoding='utf-8') as file:
+        with open(self.csv_file, mode='w', newline='', encoding='utf-8') as file:
             fieldnames = rows[0].keys() if rows else []  # Get headers from first row
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
@@ -97,7 +94,8 @@ class UserProfileStore:
                 user_profile.popular_tracks = Counter(user_data['popular_tracks'])
                 user_profile.song_count = user_data['song_count']
                 return user_profile
-
+            
+        print(f"\nJSON file not found: {self.user_profiles_json}")
         # Fallback to reading from CSV and performing aggregation if JSON doesn't have the profile
         rows = self._read_csv()
         print("\nPrinting out rows in user profile csv read")
@@ -142,6 +140,7 @@ class UserProfileStore:
 
                 self._write_json(user_profiles)
                 return user_profile
+        print(f"\nUser profile not found.")
         return None  # User profile not found
 
     def update_user_profile(self, user_id: str, user_profile: UserProfile) -> None:
@@ -151,6 +150,7 @@ class UserProfileStore:
             user_profiles[user_id] = user_profile
             self._write_json(user_profiles)
         else:
+            print(f"\nJSON file not found: {self.user_profiles_json}")
             # If JSON file doesn't exist, fallback to CSV
             rows = self._read_csv()
             updated = False

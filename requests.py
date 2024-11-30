@@ -4,7 +4,9 @@ from RecommendationSystem.Aggregator import Aggregator
 from RecommendationSystem.Algorithms.CosineSimiliarity import CosineSimilarity
 from RecommendationSystem.Algorithms.KNN import KNNRecommender
 from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSamplingStrategy
+from UserProfileSystem.FeedbackSystem.FeedbackStrategy import FeedbackStrategy
 from UserProfileSystem.FeedbackSystem.LikeDislikeFeedbackStrategy import LikeDislikeFeedbackStrategy
+from UserProfileSystem.FeedbackSystem.NewFeedbackStrategy import NewFeedbackStrategy
 from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
@@ -12,11 +14,14 @@ import pickle
 
 config_filename = "static_song_store.pkl"
 
+CSV_FILE: str = "users.csv"
+JSON_FILE: str = "user_profiles.json"
+
 def get_recommendations(user_id):
     # Load existing song and user data
     with open(config_filename, 'rb') as config_file:
         all_songs = pickle.load(config_file)
-    user_profile_store = UserProfileStore("users.csv")
+    user_profile_store = UserProfileStore(csv_file=CSV_FILE, json_file=JSON_FILE)
     user_profile = user_profile_store.get_user_profile(user_id)
 
     # cold start strategy
@@ -33,6 +38,7 @@ def get_recommendations(user_id):
         weights=[0.2, 0.8],
         user_profile_store=user_profile_store,
         cold_start_strategy=random_sampling_strategy,
+        feedback_strategy=NewFeedbackStrategy(),
     )
 
     # Get the top 3 popular songs for cold start
