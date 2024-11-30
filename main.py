@@ -14,9 +14,9 @@ from UserProfileSystem.UserProfileStore import UserProfileStore
 from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
 
 
-DEFAULT_DATA_FILENAME: str = "Data/tracks_features.csv"
+DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
 DEFAULT_USER_FILENAME: str = "users.csv"
-DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
+DEFAULT_USER_TRACKS_CSV: str = "adn-spotify-playlist_features-runaway.csv"
 DEFAULT_USER_JSON = 'user_profiles.json'
 # DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
 # DEFAULT_USER_FILENAME = "mock_users.csv"
