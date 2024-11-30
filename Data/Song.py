@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 from collections import Counter
 
+=======
+>>>>>>> lingjun/from-scratch-algo
 import numpy as np
 from numpy.typing import NDArray
 
@@ -8,6 +11,7 @@ import Data.constants as c
 
 class Song:
     """A representation of a complete set of Spotify song data."""
+<<<<<<< HEAD
     
     id: str | None
     name: str | None
@@ -62,11 +66,44 @@ class Song:
             year: int | None,
             release_date: str | None,
             popularity: float | None,
+=======
+
+    def __init__(
+            self,
+            track_id: str,
+            name: str,
+            album: str,
+            album_id: str,
+            artists: list[str],
+            artist_ids: list[str],
+            track_number: int,
+            disc_number: int,
+            explicit: bool,
+            danceability: float,
+            energy: float,
+            key: int,
+            loudness: float,
+            mode: int,
+            speechiness: float,
+            acousticness: float,
+            instrumentalness: float,
+            liveness: float,
+            valence: float,
+            tempo: float,
+            duration_ms: int,
+            time_signature: float,
+            year: int,
+            release_date: str,
+>>>>>>> lingjun/from-scratch-algo
     ) -> None:
         """Initialize a Song object.
         
         Parameters:
+<<<<<<< HEAD
             id (str): The track ID.
+=======
+            track_id (str): The track ID.
+>>>>>>> lingjun/from-scratch-algo
             name (str): The song name.
             album (str): The album.
             album_id (str): The album ID.
@@ -90,10 +127,16 @@ class Song:
             time_signature (float): The encoded time signature of the song.
             year (int): The year of the song's release.
             release_date (str): The complete release date of the song.
+<<<<<<< HEAD
             popularity (float): The popularity of the song.
         """
 
         self.id = id
+=======
+        """
+
+        self.track_id = track_id
+>>>>>>> lingjun/from-scratch-algo
         self.name = name
         self.album = album
         self.album_id = album_id
@@ -117,13 +160,21 @@ class Song:
         self.time_signature = time_signature
         self.year = year
         self.release_date = release_date
+<<<<<<< HEAD
         self.popularity = popularity
         
+=======
+
+>>>>>>> lingjun/from-scratch-algo
         # Ensure that the song data is valid.
         self.validate_features()
 
     def __repr__(self: "Song") -> str:
+<<<<<<< HEAD
         return (f"Song(name={self.name}, id={self.id}, "
+=======
+        return (f"Song(name={self.name}, track_id={self.track_id}, "
+>>>>>>> lingjun/from-scratch-algo
                 f"danceability={self.danceability}, energy={self.energy}, "
                 f"valence={self.valence})")
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from RecommendationSystem import Recommender
 from collections import Counter
 import numpy as np
@@ -7,6 +8,17 @@ from UserProfileSystem.UserProfileStore import UserProfileStore
 from UserProfileSystem.FeedbackSystem.NewFeedbackStrategy import NewFeedbackStrategy
 
 from Data import Song
+=======
+from Data import Song
+from RecommendationSystem import Recommender
+from collections import Counter
+import numpy as np
+
+from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSamplingStrategy
+from UserProfileSystem.UserProfile import UserProfile
+from UserProfileSystem.UserProfileStore import UserProfileStore
+
+>>>>>>> lingjun/from-scratch-algo
 
 class Aggregator:
     DEFAULT_TOP_N: int = 5
@@ -15,7 +27,10 @@ class Aggregator:
     user_profile_store: UserProfileStore
     recommenders: list[Recommender]
     cold_start_strategy: RandomSamplingStrategy
+<<<<<<< HEAD
     feedback_strategy: NewFeedbackStrategy  # Updated to use NewFeedbackStrategy
+=======
+>>>>>>> lingjun/from-scratch-algo
     weights: list[float]
     top_n: int
 
@@ -26,7 +41,10 @@ class Aggregator:
             weights: list[float],
             user_profile_store: UserProfileStore,
             cold_start_strategy: RandomSamplingStrategy,
+<<<<<<< HEAD
             feedback_strategy: NewFeedbackStrategy,  # Adding the feedback strategy
+=======
+>>>>>>> lingjun/from-scratch-algo
             top_n: int = DEFAULT_TOP_N,
     ) -> None:
         """Initializes the Aggregator with a list of recommenders and
@@ -34,8 +52,13 @@ class Aggregator:
         
         :param recommenders: List of Recommender objects to aggregate.
         :param weights: List of weights corresponding to the recommenders.
+<<<<<<< HEAD
         :param feedback_strategy: Instance of feedback strategy to update user profile.
         """
+=======
+        """
+
+>>>>>>> lingjun/from-scratch-algo
         if len(recommenders) != len(weights):
             raise ValueError("The number of recommenders must be equal to the number of weights.")
 
@@ -43,7 +66,10 @@ class Aggregator:
         self.user_profile_store = user_profile_store
         self.recommenders = recommenders
         self.cold_start_strategy = cold_start_strategy
+<<<<<<< HEAD
         self.feedback_strategy = feedback_strategy  # Initialize feedback strategy
+=======
+>>>>>>> lingjun/from-scratch-algo
         self.weights = weights
         self.top_n = top_n
 
@@ -77,6 +103,7 @@ class Aggregator:
         song: Song
         recommended_songs: list[Song] = [song for (song, _) in all_song_scores.most_common(self.top_n)]
 
+<<<<<<< HEAD
         # Now, we apply feedback after recommendations (when feedback is received from the user)
         self.apply_feedback_to_profile(recommended_songs)
 
@@ -99,3 +126,6 @@ class Aggregator:
             # Update the user profile based on the feedback score
             self.feedback_strategy.update_user_profile_based_on_feedback(self.user_id, song, feedback_score)
 
+=======
+        return recommended_songs
+>>>>>>> lingjun/from-scratch-algo

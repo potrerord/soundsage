@@ -24,7 +24,6 @@ def main() -> None:
     
     # Load the dataset into memory.
     print(f"\nLoading song data into memory from '{DEFAULT_DATA_FILENAME}'...")
-
     song_store: SongStore = SongStore(file_name=DEFAULT_DATA_FILENAME)
 
     # Get list of all songs from data.

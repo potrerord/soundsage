@@ -1,6 +1,13 @@
 # adn
 tracks_features.csv
 dataset.csv
+<<<<<<< HEAD
+=======
+static_song_store.pkl
+tempCodeRunnerFile.py
+soundsage-frontend/src/tempCodeRunnerFile.js
+.vscode/
+>>>>>>> lingjun/from-scratch-algo
 .DS_Store
 **/__pycache__/
 

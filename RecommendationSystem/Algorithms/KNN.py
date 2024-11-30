@@ -86,7 +86,11 @@ class KNNRecommender(Recommender):
         print(f"\nGetting KNN recommendations for {self.user_profile}...")
 
         # Get the user profile vector.
+<<<<<<< HEAD
         user_vector: NDArray[np.floating] = self.user_profile.get_user_vector()
+=======
+        user_vector: NDArray[np.floating] = self._get_user_vector()
+>>>>>>> lingjun/from-scratch-algo
 
         # Calculate distances from user vector to all songs.
         distances: list[tuple[Song, np.floating]] = []

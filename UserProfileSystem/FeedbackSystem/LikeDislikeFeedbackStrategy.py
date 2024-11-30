@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from UserProfileSystem import UserProfile
+=======
+from UserProfileSystem.UserProfile import UserProfile
+>>>>>>> lingjun/from-scratch-algo
 from Data import Song
 
 class LikeDislikeFeedbackStrategy:
