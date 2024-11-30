@@ -1,7 +1,7 @@
 import sys
 
 from ctypes import DEFAULT_MODE
-
+import os
 from Data.Song import Song
 from Data.SongStore import SongStore
 from RecommendationSystem.Aggregator import Aggregator
@@ -14,16 +14,18 @@ from UserProfileSystem.UserProfileStore import UserProfileStore
 from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
 
 
-DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
+DEFAULT_DATA_FILENAME: str = "Data/tracks_features.csv"
 DEFAULT_USER_FILENAME: str = "users.csv"
 DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
-DEFAULT_USER_JSON = 'user_profiles/user_profiles.json'
+DEFAULT_USER_JSON = 'user_profiles.json'
 # DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
 # DEFAULT_USER_FILENAME = "mock_users.csv"
 DEFAULT_USER_ID: str = "1"
 
 
 def main() -> None:
+    print("Current Working Directory:", os.getcwd())
+
     print(f"\nWelcome to SoundSage!")        
     
     # Load the dataset into memory.
@@ -37,12 +39,12 @@ def main() -> None:
 
     # Read user profile.
     print("\nReading user profile...")
-    user_profile_store: UserProfileStore = UserProfileStore(file_name=DEFAULT_USER_FILENAME)
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     print("\nGetting user profile")
     print(user_profile_store)
 
-    user_profile: UserProfile = user_profile_store.get_user_profile(user_id=DEFAULT_USER_ID)
-    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
+    user_profile: UserProfile = user_profile_store.get_user_profile(DEFAULT_USER_ID)
+    user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     
     # Validate user profile features.
