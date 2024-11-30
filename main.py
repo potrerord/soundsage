@@ -11,11 +11,15 @@ from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSampling
 from UserProfileSystem.FeedbackSystem.NewFeedbackStrategy import NewFeedbackStrategy
 from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
+from RecommendationSystem.Recommender import FeaturePrioritizationRecommender
+
 
 DEFAULT_DATA_FILENAME: str = "tracks_features.csv"
 DEFAULT_USER_FILENAME: str = "users.csv"
 DEFAULT_USER_TRACKS_CSV: str = "Data/adn-spotify-playlist_features-runaway.csv"
 DEFAULT_USER_JSON = 'user_profiles/user_profiles.json'
+# DEFAULT_USER_FILENAME: str = "adn-spotify-playlist_features-runaway.csv"
+# DEFAULT_USER_FILENAME = "mock_users.csv"
 DEFAULT_USER_ID: str = "1"
 
 
@@ -33,6 +37,11 @@ def main() -> None:
 
     # Read user profile.
     print("\nReading user profile...")
+    user_profile_store: UserProfileStore = UserProfileStore(file_name=DEFAULT_USER_FILENAME)
+    print("\nGetting user profile")
+    print(user_profile_store)
+
+    user_profile: UserProfile = user_profile_store.get_user_profile(user_id=DEFAULT_USER_ID)
     user_profile_store: UserProfileStore = UserProfileStore(DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     user_profile: UserProfile = UserProfile.create_profile_from_songs_csv(DEFAULT_USER_ID,DEFAULT_USER_TRACKS_CSV,DEFAULT_USER_JSON)
     
@@ -102,4 +111,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

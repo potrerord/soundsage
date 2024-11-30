@@ -1,12 +1,13 @@
+from Data import Song
 from RecommendationSystem import Recommender
 from collections import Counter
 import numpy as np
+
 from RecommendationSystem.ColdStart.RandomSamplingStrategy import RandomSamplingStrategy
 from UserProfileSystem.UserProfile import UserProfile
 from UserProfileSystem.UserProfileStore import UserProfileStore
 from UserProfileSystem.FeedbackSystem.NewFeedbackStrategy import NewFeedbackStrategy
 
-from Data import Song
 
 class Aggregator:
     DEFAULT_TOP_N: int = 5
@@ -36,6 +37,7 @@ class Aggregator:
         :param weights: List of weights corresponding to the recommenders.
         :param feedback_strategy: Instance of feedback strategy to update user profile.
         """
+
         if len(recommenders) != len(weights):
             raise ValueError("The number of recommenders must be equal to the number of weights.")
 

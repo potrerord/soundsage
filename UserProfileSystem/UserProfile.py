@@ -8,7 +8,6 @@ import numpy as np
 import os
 import Data.constants as c
 
-
 class UserProfile:
     DEFAULT_TOP_N: int = 5
 
@@ -374,5 +373,17 @@ class UserProfile:
             raise ValueError(
                 f"invalid user valence: {self.valence:.4f} not in range [{c.VALENCE_MIN}, {c.VALENCE_MAX}].")
 
-        # TODO add more
-        # speechiness: float
+    def write_to_csv_dict(self):
+        '''
+        Help turning into iterable for saving to CSV
+        'user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
+        '''
+        csv_dict = {}
+        names = ['user_id','danceability','energy','valence','acousticness','tempo','loudness','genres','artists','popular_tracks','song_count']
+        vals = [self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.genres, self.artists, self.popular_tracks, self.song_count]
+        for i in range(len(names)): 
+            name = names[i]
+            val = vals[i]
+            csv_dict[name] = val
+        return csv_dict
+        # return iter([self.user_id, self.danceability, self.energy, self.valence, self.acousticness, self.tempo, self.loudness, self.genres, self.artists, self.popular_tracks, self.song_count])

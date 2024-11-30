@@ -1,6 +1,10 @@
 # adn
 tracks_features.csv
 dataset.csv
+static_song_store.pkl
+tempCodeRunnerFile.py
+soundsage-frontend/src/tempCodeRunnerFile.js
+.vscode/
 .DS_Store
 **/__pycache__/
 

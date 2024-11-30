@@ -23,3 +23,9 @@ pip install -r requirements.txt
    - Download or provide a CSV file containing the song data.
    - Place the CSV file in a folder named `Data` located in the root directory of the project.
    - The CSV file **must** be named `tracks_features.csv`.
+
+2. **Work with front end**: 
+    - Run the create_static_song.py file and create static_song_store.pkl file. 
+    - run python3 app.py from the root directory
+    - run npm start from the soundsage/frontend to start the front end view 
+    - it might take a while for data to show up. Monitor the backend on your two api calls on terminal for progress update

@@ -1,0 +1,113 @@
+[
+    {
+      "id": "1",
+      "name": "Song of Freedom",
+      "artists": ["John Legend"],
+      "danceability": 0.78,
+      "energy": 0.85,
+      "valence": 0.72,
+      "acousticness": 0.15,
+      "tempo": 120.0,
+      "loudness": -5.5
+    },
+    {
+      "id": "2",
+      "name": "Morning Light",
+      "artists": ["Adele"],
+      "danceability": 0.65,
+      "energy": 0.70,
+      "valence": 0.65,
+      "acousticness": 0.35,
+      "tempo": 95.0,
+      "loudness": -6.2
+    },
+    {
+      "id": "3",
+      "name": "Summer Breeze",
+      "artists": ["Ed Sheeran"],
+      "danceability": 0.80,
+      "energy": 0.88,
+      "valence": 0.90,
+      "acousticness": 0.10,
+      "tempo": 130.0,
+      "loudness": -4.8
+    },
+    {
+      "id": "4",
+      "name": "Silent Whisper",
+      "artists": ["Norah Jones"],
+      "danceability": 0.55,
+      "energy": 0.60,
+      "valence": 0.50,
+      "acousticness": 0.75,
+      "tempo": 80.0,
+      "loudness": -7.0
+    },
+    {
+      "id": "5",
+      "name": "Electric Dreams",
+      "artists": ["Imagine Dragons"],
+      "danceability": 0.90,
+      "energy": 0.95,
+      "valence": 0.85,
+      "acousticness": 0.05,
+      "tempo": 140.0,
+      "loudness": -3.0
+    },
+    {
+      "id": "6",
+      "name": "Moonlit Shadows",
+      "artists": ["Lana Del Rey"],
+      "danceability": 0.45,
+      "energy": 0.55,
+      "valence": 0.48,
+      "acousticness": 0.85,
+      "tempo": 70.0,
+      "loudness": -8.0
+    },
+    {
+      "id": "7",
+      "name": "Starry Skies",
+      "artists": ["Coldplay"],
+      "danceability": 0.68,
+      "energy": 0.75,
+      "valence": 0.70,
+      "acousticness": 0.25,
+      "tempo": 100.0,
+      "loudness": -5.0
+    },
+    {
+      "id": "8",
+      "name": "Golden Days",
+      "artists": ["Taylor Swift"],
+      "danceability": 0.88,
+      "energy": 0.92,
+      "valence": 0.95,
+      "acousticness": 0.12,
+      "tempo": 150.0,
+      "loudness": -4.0
+    },
+    {
+      "id": "9",
+      "name": "Harmony",
+      "artists": ["Sam Smith"],
+      "danceability": 0.60,
+      "energy": 0.65,
+      "valence": 0.58,
+      "acousticness": 0.50,
+      "tempo": 85.0,
+      "loudness": -6.5
+    },
+    {
+      "id": "10",
+      "name": "Sunset Serenade",
+      "artists": ["Shawn Mendes"],
+      "danceability": 0.75,
+      "energy": 0.80,
+      "valence": 0.78,
+      "acousticness": 0.20,
+      "tempo": 110.0,
+      "loudness": -5.2
+    }
+  ]
+  

@@ -2,19 +2,54 @@ import os
 import json
 import csv
 from collections import Counter
-from typing import Optional
+from typing import Optional, TextIO
 from UserProfileSystem.UserProfile import UserProfile  # <-- Make sure this import is present
+
+from UserProfileSystem.UserProfile import UserProfile
+
+import Data.constants as c
 
 
 class UserProfileStore:
-    def __init__(self, csv_file: str, json_file: str) -> None:
+    DATA_DIRNAME: str = "Data"
+    # file_path: str
+    csv_file: str
+    user_profiles_json: str
+
+    def __init__(
+            self: "UserProfileStore",
+            file_name: str,
+            csv_file: str,
+            json_file: str,
+    ) -> None:
+        self.file_path = os.path.join(self.DATA_DIRNAME, file_name)
         self.csv_file = csv_file
         self.user_profiles_json = json_file
 
-    def _read_csv(self) -> list[dict[str, str]]:
-        with open(self.csv_file, newline='', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            return [row for row in reader]
+    def _read_csv(self: "UserProfileStore") -> list[dict[str, str]]:
+        """Reads the CSV file and returns a list of dictionaries."""
+        try:
+            file: TextIO
+            with open(self.csv_file, mode='r', newline='', encoding='utf-8') as file:
+                reader: csv.DictReader = csv.DictReader(file)
+
+                row: dict[str, str]
+                return [row for row in reader]
+            
+        except FileNotFoundError:
+            return []  # If file doesn't exist, return an empty list
+
+    def _write_csv(
+            self: "UserProfileStore",
+            rows: list[dict[str, str]],
+    ) -> None:
+        """Writes the given list of rows back to the CSV file."""
+        file: TextIO
+        with open(self.file_path, mode='w', newline='', encoding='utf-8') as file:
+            fieldnames = rows[0].keys() if rows else []  # Get headers from first row
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
 
     def _read_json(self) -> dict[str, UserProfile]:
         if not os.path.exists(self.user_profiles_json):
@@ -40,7 +75,8 @@ class UserProfileStore:
         # Example aggregation logic, replace with your actual aggregation method
         return value  # For now, just returns the value (could be a sum, average, etc.)
 
-    def get_user_profile(self, user_id: str) -> Optional[UserProfile]:
+
+    def get_user_profile(self: "UserProfileStore", user_id: str) -> UserProfile | None:
         """Fetch a user profile by user_id."""
         if os.path.exists(self.user_profiles_json):  # Check if the JSON file exists
             user_profiles = self._read_json()
@@ -64,6 +100,8 @@ class UserProfileStore:
 
         # Fallback to reading from CSV and performing aggregation if JSON doesn't have the profile
         rows = self._read_csv()
+        print("\nPrinting out rows in user profile csv read")
+        print(rows)
         for row in rows:
             if row['id'] == user_id:
                 user_profile = UserProfile(user_id=row['user_id'])
@@ -73,6 +111,8 @@ class UserProfileStore:
                 user_profile.acousticness = float(row['acousticness'])
                 user_profile.tempo = float(row['tempo'])
                 user_profile.loudness = float(row['loudness'])
+
+                # Restore genres, artists, and popular tracks (handle as strings or lists)
                 user_profile.genres = Counter(eval(row['genres']))
                 user_profile.artists = Counter(eval(row['artists']))
                 user_profile.popular_tracks = Counter(eval(row['popular_tracks']))
@@ -102,8 +142,7 @@ class UserProfileStore:
 
                 self._write_json(user_profiles)
                 return user_profile
-
-        return None
+        return None  # User profile not found
 
     def update_user_profile(self, user_id: str, user_profile: UserProfile) -> None:
         """Update or add a user profile."""
@@ -152,3 +191,10 @@ class UserProfileStore:
         user_profiles = self._read_json()
         user_profiles[user_id] = user_profile
         self._write_json(user_profiles)
+
+
+    def remove_user_profile(self: "UserProfileStore", user_id: str):
+        """Removes a user profile from the CSV file."""
+        rows = self._read_csv()
+        rows = [row for row in rows if row['user_id'] != user_id]
+        self._write_csv(rows)
