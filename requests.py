@@ -25,7 +25,7 @@ COSINE_SIMILARITY_WEIGHT: float = 0.5
 KNN_WEIGHT: float = 0.5
 
 
-def get_recommendations(user_id: str):
+def get_recommendations(user_id: str, posted=False, song_info={}, rating=0):
     print("Current Working Directory:", os.getcwd())
 
     print(f"\nWelcome to SoundSage!")
@@ -82,21 +82,46 @@ def get_recommendations(user_id: str):
             {
                 "name": song.name,
                 "artists": song.artists,
-                "acousticness": song.acousticness,
                 "danceability": song.danceability,
                 "energy": song.energy,
-                "instrumentalness": song.instrumentalness,
-                "liveness": song.liveness,
-                "loudness": song.loudness,
-                "popularity": song.popularity,
-                "speechiness": song.speechiness,
-                "tempo": song.tempo,
                 "valence": song.valence,
                 "user_id": user_id,
             }
             for song in recommended_songs
         ]
     }
+    # response = {
+    #     "recommendations": [
+    #         {
+    #             "name": song.name,
+    #             "artists": song.artists,
+    #             "acousticness": song.acousticness,
+    #             "danceability": song.danceability,
+    #             "energy": song.energy,
+    #             "instrumentalness": song.instrumentalness,
+    #             "liveness": song.liveness,
+    #             "loudness": song.loudness,
+    #             "popularity": song.popularity,
+    #             "speechiness": song.speechiness,
+    #             "tempo": song.tempo,
+    #             "valence": song.valence,
+    #             "user_id": user_id,
+    #         }
+    #         for song in recommended_songs
+    #     ]
+    # }
+    # Check if it's also asking for feedback
+    if posted: 
+        # Collect feedback from the user for each recommended song
+        print("\nProviding feedback...")
+        # Now, we apply feedback after recommendations (when feedback is received from the user)
+        feedback: dict[Song, int] = recommender_aggregator.get_feedback(recommended_songs)
+        recommender_aggregator.apply_feedback_to_profile(feedback)
+
+        # Print the updated user profile after feedback
+        print("\nUpdated user profile after feedback:")
+        user_profile = user_profile_store.get_user_profile(user_id)
+        print(user_profile)
     return response
 
 
