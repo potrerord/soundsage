@@ -21,6 +21,9 @@ USERS_DATABASE_JSON = 'user_profiles.json'
 
 DEFAULT_USER_ID: str = "1"
 
+COSINE_SIMILARITY_WEIGHT: float = 0.5
+KNN_WEIGHT: float = 0.5
+
 
 def main() -> None:
     print("Current Working Directory:", os.getcwd())
@@ -64,9 +67,9 @@ def main() -> None:
 
     # recommender
     recommender_aggregator: Aggregator = Aggregator(
-        user_id="1",
+        user_id=DEFAULT_USER_ID,
         recommenders=[cosine_similarity, knn],
-        weights=[0.2, 0.8],
+        weights=[COSINE_SIMILARITY_WEIGHT, KNN_WEIGHT],
         user_profile_store=user_profile_store,
         cold_start_strategy=random_sampling_strategy,
         feedback_strategy=feedback_strategy,  # Pass feedback strategy to aggregator
