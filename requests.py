@@ -73,26 +73,10 @@ def get_recommendations(user_id: str):
         cold_start_strategy=random_sampling_strategy,
         feedback_strategy=feedback_strategy,  # Pass feedback strategy to aggregator
     )
-    create_static_data(recommender_file, "wb", recommender_aggregator)
-    create_static_data(userstore_file, "wb", user_profile_store)
     # Get the top 3 popular songs for cold start
     print("\nGetting recommended songs...")
     recommended_songs: list[Song] = recommender_aggregator.recommend()
 
-    # Convert recommendations into a JSON-compatible format
-    # response = {
-    #     "recommendations": [
-    #         {
-    #             "name": song.name,
-    #             "artists": song.artists,
-    #             "danceability": song.danceability,
-    #             "energy": song.energy,
-    #             "valence": song.valence,
-    #             "user_id": user_id,
-    #         }
-    #         for song in recommended_songs
-    #     ]
-    # }
     response = {
         "recommendations": [
             {
@@ -120,26 +104,6 @@ def feedback_system(song_info: dict, rating: int, user_id: str):
     print(user_id)
     print(rating)
     print(song_info)
-
-    # recommender
-    recommender_aggregator: Aggregator = load_static_data(recommender_file, "rb")
-    user_profile_store = load_static_data(userstore_file, "rb")
-    # Collect feedback from the user for each recommended song
-    print("\nProviding feedback...")
-    # Build the song object
-    feedback_song = Song(id=None, album=None, album_id=None, artist_ids=None, track_number=0, disc_number=0, explicit=False, key=c.KEY_MIN, mode=c.MODE_MINOR, duration_ms=0, time_signature=c.TIME_SIG_MIN, year=2000, release_date=2000, popularity=None, name=song_info["name"], artists=song_info["artists"], acousticness=song_info["acousticness"], 
-                            danceability=song_info["danceability"], energy=song_info["energy"], instrumentalness=song_info["instrumentalness"], 
-                            liveness=song_info["liveness"], loudness=song_info["loudness"], speechiness=song_info["speechiness"], tempo=song_info["tempo"], valence=song_info["valence"], 
-                            )
-    feedback = {feedback_song: rating}
-    recommender_aggregator.apply_feedback_to_profile(feedback)
-
-    # Print the updated user profile after feedback
-    print("\nUpdated user profile after feedback:")
-    user_profile = user_profile_store.get_user_profile(user_id)
-    print(user_profile)
-
-    # TODO: Use this feedback for this speicific user using FeedbackSystem. Unclear of the mechanisms as of now.
 
 def create_static_data(file_name, mode, data): 
     # Writing the dictionary to a file in JSON format

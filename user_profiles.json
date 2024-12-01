@@ -1,15 +1,15 @@
 [
     {
         "user_id": "1",
-        "acousticness": 0.08354088505747126,
-        "danceability": 0.7686,
-        "energy": 0.89446,
-        "instrumentalness": 0.0,
-        "liveness": 0.0,
-        "loudness": -19.8781,
+        "acousticness": 0.08528088505747126,
+        "danceability": 0.7708499999999999,
+        "energy": 0.89869,
+        "instrumentalness": 0.00495,
+        "liveness": 0.0033299999999999996,
+        "loudness": -19.88281,
         "popularity": 0.0,
-        "speechiness": 0.0,
-        "tempo": 279.31019999999995,
+        "speechiness": 0.00312,
+        "tempo": 280.16418999999996,
         "valence": 0.4667517241379312,
         "most_common_key": -1,
         "most_common_mode": -1,
@@ -99,8 +99,6 @@
             "JONAH": 1,
             "Rachel Chinouriri": 1
         },
-        "song_count": 87,
-        "genres": {},
-        "popular_tracks": {}
+        "song_count": 87
     }
 ]
