@@ -4,6 +4,8 @@ dataset.csv
 static_song_store.pkl
 tempCodeRunnerFile.py
 soundsage-frontend/src/tempCodeRunnerFile.js
+static_recommender.pkl
+static_userstore.pkl
 .vscode/
 .DS_Store
 **/__pycache__/

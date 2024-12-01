@@ -8,13 +8,6 @@ app = Flask(__name__)
 @app.route('/recommendations')
 def get_recommendation():
     data = get_recommendations('1')
-    # if request.method == 'POST':
-    #     song_info = request.json['song']
-    #     feedback = request.json['rating']
-    #     user_id = request.json['user_id']
-    #     feedback_system(song_info, feedback, user_id)
-    #     return 'Done', 201
-    # if request.method == 'GET':
     return jsonify(data)
 
 # Add query string for getting feedback
@@ -23,7 +16,7 @@ def get_feedback():
     song_info = request.json['song']
     feedback = request.json['rating']
     user_id = request.json['user_id']
-    feedback_system(song_info, feedback, user_id)
+    feedback_system(song_info=song_info, rating=feedback, user_id=user_id)
     return 'Done', 201
 
 if __name__ == '__main__':
