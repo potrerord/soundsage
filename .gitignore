@@ -1,3 +1,15 @@
+# adn
+tracks_features.csv
+dataset.csv
+static_song_store.pkl
+tempCodeRunnerFile.py
+soundsage-frontend/src/tempCodeRunnerFile.js
+static_recommender.pkl
+static_userstore.pkl
+.vscode/
+.DS_Store
+**/__pycache__/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

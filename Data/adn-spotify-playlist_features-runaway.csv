@@ -1,0 +1,88 @@
+id,name,artists,album,danceability,energy,valence,tempo,duration_ms,popularity,explicit,key,mode,time_signature,loudness,speechiness,acousticness,instrumentalness,liveness
+3k0ra8nmVbni9uxg37lL4l,Try Colour,The Jezabels,Prisoner,0.386,0.941,0.344,149.992,314235,3,False,6,0,4,-4.93,0.0526,0.00123,0.0121,0.314
+5BIjJP1zlOa3iY65RSkXkr,Nevada (feat. Cozi Zuehlsdorff),"Vicetone, Cozi Zuehlsdorff",Nevada (feat. Cozi Zuehlsdorff),0.605,0.783,0.105,124.015,208562,0,False,3,1,4,-4.271,0.0324,0.299,0.000175,0.133
+6BnioVUjZdsTeYliZcnNW8,After Hours,We Are Scientists,Brain Thrust Mastery,0.392,0.981,0.335,160.047,232014,33,False,1,0,4,-4.564,0.0799,2.9e-05,0.0422,0.174
+1VuBmEauSZywQVtqbxNqka,Beautiful Day,U2,All That You Can't Leave Behind,0.539,0.926,0.454,136.279,246400,63,False,2,1,4,-6.495,0.0499,0.014,0.00136,0.36
+2slhPeSiWmjReVK719sRHq,Long Highway,The Jezabels,Prisoner,0.39,0.737,0.183,141.226,362360,0,False,8,0,4,-6.117,0.039,0.0586,0.142,0.0914
+70wYA8oYHoMzhRRkARoMhU,When You Were Young,The Killers,Sam's Town,0.467,0.988,0.321,130.433,220427,75,False,11,1,4,-3.313,0.112,0.000152,0.0484,0.28
+1eyzqe2QqGZUmfcPZtrIyt,Midnight City,M83,"Hurry Up, We're Dreaming",0.526,0.712,0.32,105.009,241440,69,False,11,0,4,-6.525,0.0356,0.0161,0,0.179
+6svrEn54rNuEo7Ta5dJslc,Runaways,The Killers,Battle Born (Deluxe Edition),0.414,0.837,0.199,121.749,243787,0,False,1,1,4,-4.043,0.0407,0.00114,0.00693,0.0855
+73jVPicY2G9YHmzgjk69ae,Robbers,The 1975,The 1975,0.62,0.692,0.387,99.806,254510,69,False,4,1,4,-6.859,0.029,0.00036,1.81e-05,0.335
+0vqI4ZIMuifeKeItGiWbPj,Starlight,Taylor Swift,Red (Deluxe Edition),0.649,0.777,0.587,126.018,217827,36,False,9,1,4,-5.804,0.0406,0.0213,0.000335,0.221
+2uSQI4GT3S3rdoeM4SKv80,Deep Wide Open,The Jezabels,Prisoner,0.455,0.824,0.181,107.042,284627,0,False,4,1,4,-6.495,0.0385,0.00923,0.000815,0.103
+71jGGLe5VtEHjIk5dU2W3S,Red Eyes,The War On Drugs,Lost In The Dream,0.464,0.815,0.467,161.845,298920,0,False,10,1,4,-6.371,0.0368,0.00871,0.201,0.162
+05g8HUhPUSTHm0vKxOPTPh,Look of Love,The Jezabels,The Brink,0.509,0.799,0.401,124.013,241187,0,False,8,1,4,-6.212,0.0431,0.00819,0.0216,0.271
+45D0ixQWzXQOoU1S9aSnKk,Under The Pressure,The War On Drugs,Lost In The Dream,0.325,0.71,0.193,134.371,532307,0,False,6,1,4,-6.545,0.0295,0.307,0.172,0.132
+6S0IRhCK4P0llKnIjivfGd,Seventeen,Sjowgren,Seventeen,0.609,0.728,0.322,146.016,225360,0,False,7,1,4,-5.859,0.0419,0.327,0.0851,0.0569
+413CBplTN03RNZD8H34B6q,Strangest Thing,The War On Drugs,A Deeper Understanding,0.349,0.595,0.296,74.96,401013,48,False,4,1,4,-6.129,0.0345,0.0122,0.00922,0.111
+4JGKZS7h4Qa16gOU3oNETV,Dreams,The Cranberries,"Everybody Else Is Doing It, So Why Can't We?",0.551,0.645,0.508,128.665,271560,78,False,4,1,4,-13.093,0.0354,0.0031,0.00376,0.421
+2QbCI7bCcqFlxYVUNHjr6Z,City Girl,The Jezabels,Prisoner,0.512,0.787,0.156,104.982,324301,3,False,2,0,3,-6.283,0.0284,0.00848,0.0411,0.116
+2fzEIFwlNG5FzwOrxtTeOE,All You Need,The Jezabels,The Brink,0.572,0.555,0.344,120.017,298213,0,False,5,0,4,-7.731,0.0306,0.141,0.118,0.0778
+0AsgnUUtH1qFHe2RiBv9DI,The Others,The Jezabels,The Others,0.538,0.897,0.47,141.03,261335,31,False,1,0,4,-8.067,0.0376,0.0207,0.0754,0.154
+7C6NcqS3fNDXLgP5L2Kbgp,Just Like Heaven,The Cure,Greatest Hits,0.439,0.969,0.8,151.111,212133,0,False,9,1,4,-3.391,0.0469,0.015,5.47e-05,0.14
+3udJxehBCZ27wRO9gSum4B,I Don’t Think I Can Do This Again (with Clairo),"Mura Masa, Clairo",I Don’t Think I Can Do This Again,0.58,0.434,0.536,139.082,221987,40,False,8,1,4,-10.708,0.0479,0.00738,0.000129,0.105
+4wr8oaLpjzdXamuobDBUCH,Bad Caffeine,Charli Adams,Bad Caffeine,0.462,0.893,0.353,139.988,253018,0,False,1,0,4,-5.041,0.0585,0.00492,2.98e-06,0.157
+6RtRxaZN5RMWFbeZW24oRx,hold on,flor,come out. you're hiding (deluxe),0.609,0.872,0.534,111.967,204774,46,False,8,1,4,-4.72,0.0447,0.0483,0.000971,0.119
+4SccTh1QV0S7UjjCJR5dYP,Hurt Me,The Jezabels,She's So Hard,0.49,0.913,0.529,130.424,346120,35,False,0,0,4,-6.519,0.108,0.0869,0.118,0.0878
+3TxKtkCNR1yQARsvHxvNnP,Tokyo Nights,"Digital Farm Animals, Shaun Frank, Dragonette",Tokyo Nights,0.556,0.671,0.252,105.057,243536,47,False,11,0,4,-6.366,0.0647,0.0319,0.000377,0.111
+6ie2Bw3xLj2JcGowOlcMhb,Green Light,Lorde,Melodrama,0.594,0.721,0.253,128.942,234653,70,False,2,1,4,-7.812,0.0957,0.0209,8.55e-06,0.0879
+3x3Hg4vpObiinlS8aOqMqE,Backbeat,Dagny,Backbeat,0.606,0.881,0.685,139.944,225733,0,False,7,0,4,-4.825,0.0636,0.00712,0.0246,0.151
+41IShViF79gmulEkIHAjcb,The Game of Love (feat. Michelle Branch) - Main / Radio Mix,"Santana, Michelle Branch",Shaman,0.59,0.929,0.674,119.818,254467,61,False,2,1,4,-3.236,0.0478,0.0714,0.000153,0.0598
+7bt0EnhjElN4bw3K1KwIkU,Playing Games,Anna of the North,Dream Girl,0.557,0.618,0.432,153.976,203707,28,False,1,1,4,-10.459,0.0464,0.374,0.137,0.156
+6De0lHrwBfPfrhorm9q1Xl,Me Rehúso,Danny Ocean,Me Rehúso,0.744,0.804,0.426,104.823,205715,72,False,1,1,4,-6.327,0.0677,0.0231,0,0.0494
+45S5WTQEGOB1VHr1Q4FuPl,Golden,Harry Styles,Fine Line,0.448,0.838,0.254,139.863,208907,72,False,4,0,4,-5.257,0.0557,0.21,0.000131,0.131
+6yOIdK2nKErlhyo5u7y81B,Dreamers,Savoir Adore,Our Nature,0.603,0.892,0.656,102.516,249261,0,False,3,1,4,-6.052,0.0319,0.0811,0.000179,0.0873
+51pshtuYkgUQnt5huMPbKL,The Spins,Mac Miller,K.I.D.S.,0.794,0.766,0.55,127.007,195873,6,True,9,0,4,-3.894,0.0377,0.0135,0,0.0785
+7uu7UnlZhQlPhGf0SAYBLV,Forever - Separate But Together,CHVRCHES,Forever (Separate But Together),0.684,0.696,0.849,149.933,221159,0,False,2,0,4,-3.416,0.0428,0.0498,1.17e-06,0.0764
+6Kkr5KdzKI9gLgQne9VqKA,Bye Bye Bye,School Of Seven Bells,Disconnect from Desire,0.545,0.93,0.294,115.975,255067,0,False,8,1,4,-5.452,0.0407,0.02,9.55e-05,0.182
+2bYTSTwiAPXDj322o1wKu2,I Want To Be With You,chloe moriondo,I Want To Be With You,0.743,0.443,0.37,119.984,179573,34,True,4,1,4,-6.968,0.0382,0.0225,6.76e-06,0.099
+0b8Sf6sJqXOr9cP6tQ7QQx,talk,keshi,always,0.644,0.74,0.718,140.033,174404,53,True,10,1,4,-6.233,0.0323,0.455,0,0.1
+4nlvKIIetOWGIMyhjQXgOZ,The Difference,"Flume, Toro y Moi",The Difference,0.56,0.865,0.424,159.96,139663,23,False,1,1,4,-1.148,0.0909,0.255,0.000153,0.083
+0DuGEqN0pRJ5QAVFvnLe6P,Space Cadet,beabadoobee,Space Cadet,0.57,0.874,0.742,127.05,264013,42,True,4,1,4,-5.2,0.0273,0.00383,0.0282,0.0621
+2dphvmoLEXdk8hOYxmHlI3,Strawberry Swing,Coldplay,Viva La Vida or Death and All His Friends,0.378,0.663,0.428,173.136,249667,56,False,1,1,4,-10.476,0.0458,0.00722,0.797,0.191
+5WHgAhE3VlGpBiNKUWEyDY,fever dream,mxmtoon,dawn,0.565,0.693,0.191,101.909,196480,0,False,4,1,4,-5.962,0.0281,0.126,3.7e-05,0.0888
+0jNrvCFgr5S4VvfhrxwSu3,Catch Me,The Jezabels,Prisoner,0.276,0.664,0.0794,110.993,345195,3,False,10,1,4,-7.251,0.0361,0.0169,0.248,0.114
+3fsYp2OCMwkANwqHCAWv5H,Backbeat,Dagny,Ultraviolet EP,0.61,0.874,0.644,139.928,225733,37,False,7,0,4,-4.851,0.0586,0.00833,0.0144,0.158
+089keBWJUOsI9wUeVr1uIr,Hummingbird Heartbeat,Katy Perry,Teenage Dream: The Complete Confection,0.596,0.893,0.625,121.957,212280,42,False,6,1,4,-2.946,0.0935,0.00247,0,0.0913
+0fGseaY3EgFuCRYR8okcNi,Paper Cup,"Real Estate, Sylvan Esso",The Main Thing,0.546,0.756,0.766,122.035,270733,31,True,9,1,4,-6.272,0.029,0.557,0.0494,0.336
+0brBOx8ejPXvBYnQkWquYK,Close To You,Dayglow,Harmony House,0.875,0.649,0.833,140.031,194693,0,False,6,1,4,-5.754,0.0433,0.429,0.00237,0.0704
+5RoIXwyTCdyUjpMMkk4uPd,Sweet Disposition,The Temper Trap,Conditions,0.531,0.821,0.34,129.139,230800,24,False,2,1,4,-6.812,0.0439,0.0701,0.171,0.124
+4KiuIdXEdzcoGSnBQMlNAj,That's What Counts,We Are Scientists,Brain Thrust Mastery,0.518,0.795,0.346,129.996,259880,9,False,9,1,4,-6.325,0.0374,0.00555,0.473,0.0945
+6nH4AYbUqEvWP3vcPkOfO4,Wait Up,NOVACUB,Future Echoes,0.478,0.978,0.374,161.048,230990,5,False,2,0,4,-4.02,0.157,0.00549,3.98e-06,0.144
+7iAONiacXnWa66oZD0aVHh,What If It Doesn't End Well,chloe moriondo,Blood Bunny,0.571,0.328,0.184,142.953,221747,41,True,9,1,4,-9.203,0.0308,0.118,0.00126,0.111
+2g0Bmi3kYEntusDP6xlAGZ,striptease,carwash,striptease,0.693,0.572,0.732,130.05,160659,0,True,8,1,4,-8.89,0.0749,0.127,0.952,0.102
+7zs9aoWKrINoC5ZXL7OvRm,Teenage Headache Dreams (with Ellie Rowsell),"Mura Masa, Ellie Rowsell, Wolf Alice",R.Y.C,0.347,0.411,0.395,171.991,283013,35,False,6,1,4,-8.071,0.0414,0.0181,0.636,0.0975
+4DlvCaIvg7sCd1t4Kjm0FT,hide n seek,"Hiko Momoji, Nova",hide n seek,0.553,0.816,0.37,86.989,191079,0,True,2,1,4,-5.24,0.0387,0.11,0.00102,0.133
+58AWfmYbSeMywgJtXkey7Q,Vapour Trail - 2001 Remaster,Ride,Nowhere (Expanded),0.428,0.802,0.428,107.527,257667,45,False,4,1,4,-5.682,0.0304,0.000636,0.778,0.0944
+5ClqcvP4dYDDX6Zv3jPQD1,Saturdays (feat. HAIM),"Twin Shadow, HAIM",Caer,0.47,0.696,0.802,169.976,205442,54,False,9,1,4,-4.749,0.104,0.0659,3.85e-05,0.0962
+0zEKfIm5b8EUcDM3qoPXKX,Lose My Mind (feat. Mr Gabriel),Jai Wolf,The Cure To Loneliness,0.607,0.775,0.506,140.019,258547,11,False,3,1,4,-6.038,0.0399,0.00843,0.492,0.305
+6wpYutp0e5dtaV2kCDv12O,Life's So Good (feat. Cherry Surf),"Chet Porter, Cherry Surf",Life's So Good (feat. Cherry Surf),0.465,0.888,0.514,144.831,216285,0,False,4,1,4,-4.456,0.0801,0.0633,0.355,0.666
+59zrASvoFolvYcBSewxuT4,the lifeboat's empty!,Chelsea Cutler,the lifeboat's empty!,0.534,0.649,0.358,161.828,174279,35,False,5,1,4,-7.531,0.0435,0.00712,6.22e-06,0.137
+4ecbBr4l07EN9I6lUwQTcv,Sitting Up,Spacey Jane,Sitting Up,0.557,0.725,0.73,139.943,189955,0,False,11,0,4,-6.199,0.0296,0.00705,0,0.191
+19YOJKCVvOL7v6B2Oe3UBc,One More Weekend,Maude Latour,One More Weekend,0.627,0.565,0.514,131.083,142830,50,False,3,1,3,-6.922,0.122,0.537,0,0.214
+6GtJ0hK0W5jbwXMerqRU41,Inked in Red - Single Version,Vision Video,In My Side,0.417,0.944,0.851,84.94,190037,18,False,9,1,4,-3.861,0.0576,0.132,0.0147,0.26
+6qY6IZtn59bCJsEl0tos9X,the lifeboat's empty!,Chelsea Cutler,When I Close My Eyes (Deluxe),0.534,0.649,0.358,161.828,174279,33,False,5,1,4,-7.531,0.0435,0.00712,6.22e-06,0.137
+7ol2BkROZKTtY5fuWBkMn3,Nine Stories,Hazel English,Nine Stories,0.469,0.838,0.587,164.026,173961,36,False,1,0,4,-7.693,0.0381,0.0838,0.906,0.255
+1CBINtFmLTRpCemz6woBbL,just cuz you can't,PRONOUN,There's no one new around you.,0.426,0.903,0.605,160.125,195000,22,True,6,1,4,-8.815,0.0685,0.00609,0.305,0.27
+4rEAtHXza0kdANkTLUwXM1,the movies (feat. Charli Adams),"Nightly, Charli Adams",the movies (feat. Charli Adams),0.641,0.883,0.83,109.977,178909,0,False,11,1,4,-4.2,0.0281,0.0479,6.1e-05,0.0881
+4Uvc4YOxjpZvDB6W9cUTHW,Outride a Crisis - Mickey Ver.,SEGA SOUND TEAM,SUPER HANG-ON 20th Anniversary Collection(Bonus Track),0.418,0.919,0.698,170.026,270773,9,False,4,0,4,-5.474,0.0473,0.000192,0.709,0.0915
+0KIpuVYhKUUUpjo6H5NvBY,After Midnight (feat. Clairo),"Phoenix, Clairo",After Midnight (feat. Clairo),0.639,0.82,0.667,100.013,188000,52,False,11,1,4,-5.986,0.0322,0.0153,0.00405,0.309
+4yHvBNnLubDvzTy5pha08v,Polka-dot,"Postcard Boy, carwash",Polka-dot,0.445,0.836,0.314,163.972,222747,20,False,5,1,4,-5.923,0.04,0.000124,0.554,0.235
+09DR0sHnQUhHOiSNttc1mv,Not Strong Enough,"boygenius, Julien Baker, Phoebe Bridgers, Lucy Dacus",the record,0.502,0.798,0.307,126.976,234933,72,False,1,1,4,-5.909,0.0414,0.00291,1.11e-05,0.0979
+5NzLgi3NkEuUZU1JHjq3Uy,Тоска,Molchat Doma,Этажи,0.387,0.583,0.372,159.953,189004,0,False,9,1,4,-5.216,0.0375,0.235,0.896,0.112
+5MMZJtHOiH1RmQSSe3DJdg,Sleep On The Floor,The Lumineers,Cleopatra,0.389,0.431,0.275,142.133,211851,26,False,7,1,4,-8.061,0.0344,0.249,0,0.13
+1Dp7ASSZVVOPJ85VdLpjOX,Seventeen Going Under,Sam Fender,Seventeen Going Under,0.477,0.873,0.611,161.948,302360,60,True,1,1,4,-4.946,0.0355,0.00471,0.00589,0.0813
+29K6cUtPZWdhr1VbbXgVM2,The Brink,The Jezabels,The Brink,0.452,0.794,0.2,139.995,286600,0,False,6,0,4,-6.195,0.0411,0.00101,0.0526,0.336
+1TCgfqkjOfvxRhrzcuMa8y,Remember Cloverland,Charli Adams,Bullseye,0.647,0.789,0.834,105.986,183627,0,False,2,1,4,-5.711,0.0258,0.00938,0,0.312
+5WBnKCEsPwsvWHUZmLjS3s,Alive,Empire Of The Sun,Ice On The Dune,0.524,0.885,0.396,119.953,204591,61,False,5,1,4,-3.079,0.037,0.101,0,0.0708
+3lXYJJYqh2oFL1U3yVec73,Coming of Age,Foster The People,Coming of Age,0.534,0.955,0.425,130.09,280040,0,False,7,0,4,-4.447,0.0524,0.0219,0.00573,0.322
+5DH87mAbfJTKeMNN7DWomr,Recharge & Revolt,The Raveonettes,Raven in the Grave,0.399,0.933,0.719,136.953,323973,33,False,8,1,4,-1.215,0.0414,0.0245,0.0619,0.0659
+0gcPlCmT36t4uzSwlIrfQh,Every Breaking Wave,U2,Songs Of Innocence (Deluxe),0.672,0.441,0.429,115.059,252162,43,False,1,0,4,-9.065,0.0268,0.00991,6.7e-06,0.109
+5l9h7ALxmFWHxdFRB8ybiq,Closer to Me,The Fray,Helios,0.564,0.923,0.792,147.957,167493,27,False,9,1,4,-3.372,0.0335,0.00222,3.29e-06,0.126
+35dhwUoJNlxrPyEIJkfDnx,I GOT YOU,TWICE,I GOT YOU,0.52,0.805,0.496,176.103,173240,58,False,8,1,4,-3.706,0.0551,0.0451,0,0.0935
+2YuySJd7C2aoBarBP8OvzR,drifting,Night Tapes,drifting,0.584,0.732,0.515,126.294,212440,59,True,2,1,4,-7.09,0.0565,0.608,0.39,0.137
+0oc7YoWV783fGr2GbdcIrz,Vacation,The Go-Go's,Vacation,0.5,0.823,0.88,156.79,179827,52,False,4,1,4,-8.64,0.0264,0.0875,0,0.316
+4ao9bdN6ozxdlQ9j2rGDFy,City Of Blinding Lights,U2,How To Dismantle An Atomic Bomb,0.443,0.765,0.179,139.138,347867,0,False,8,1,4,-4.104,0.0301,0.000224,0.0447,0.111
+6gMVZCELPB4uV708g7vVLW,Miracle Drug,U2,How To Dismantle An Atomic Bomb,0.369,0.695,0.134,125.155,239040,0,False,11,0,4,-5.673,0.0557,0.0064,0.000168,0.123
+2DZlGxtVEdqaDOmPdS8Ixh,Best Life,"Ben Böhmer, JONAH",Hiding,0.556,0.779,0.368,135.008,239717,27,True,8,1,4,-5.7,0.0286,0.155,0.439,0.122
+2gWY1fvwvKPQFFoahY4p3v,Never Need Me,Rachel Chinouriri,What A Devastating Turn of Events,0.569,0.792,0.702,75.533,205432,59,False,1,0,4,-4.283,0.057,0.062,0,0.176
